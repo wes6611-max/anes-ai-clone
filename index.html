@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catalogue Atelier Vidéo IA — 1300 applications</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Multi-Image Composition — Fusion de photos en vidéo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -16,418 +16,887 @@
 --fm:ui-monospace,'SF Mono',Menlo,monospace;
 }
 html,body{background:var(--bg)}
-body{font-family:var(--fs);background:var(--bg);color:var(--ink);min-height:100vh;padding:1.5rem 1rem 6rem;font-size:15px;line-height:1.55;max-width:1200px;margin:0 auto}
-header{margin-bottom:1.5rem;text-align:center;padding:1rem 0 1.5rem;position:relative}
-header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--acc),var(--acc3),transparent);opacity:.6}
-h1{font-size:2rem;font-weight:300;margin-bottom:.4rem;background:linear-gradient(135deg,var(--acc2),var(--acc),var(--acc3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.subtitle{font-size:.9rem;color:var(--dim);font-style:italic}
-.stats-bar{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
-.stat-pill{background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:.35rem .85rem;font-size:.72rem;font-family:var(--fm);color:var(--dim);display:flex;align-items:center;gap:.4rem}
-.stat-pill strong{color:var(--acc);font-weight:700}
-.controls{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,var(--bg) 70%,transparent);padding:1rem 0;margin-bottom:1rem}
-.search-wrap{position:relative;margin-bottom:.7rem}
-#search-input{width:100%;padding:.9rem 1rem .9rem 2.6rem;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-size:.92rem;font-family:inherit;outline:none;transition:border-color .2s}
-#search-input:focus{border-color:var(--acc)}
-.search-icon{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--faint);font-size:1rem;pointer-events:none}
-.cat-filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem}
-.cat-btn{padding:.4rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--dim);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:.03em}
-.cat-btn:hover{border-color:var(--faint);color:var(--ink)}
-.cat-btn.active{background:rgba(229,193,90,.12);border-color:var(--acc);color:var(--acc)}
-.cat-btn .count{font-size:.62rem;opacity:.65;margin-left:.3rem;font-family:var(--fm)}
-.results-info{font-size:.75rem;color:var(--dim);font-family:var(--fm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;padding:.5rem .8rem;background:var(--bg2);border-radius:var(--r);border:1px solid var(--border)}
-.results-info strong{color:var(--acc)}
-.clear-btn{background:transparent;border:1px solid var(--border);color:var(--dim);padding:.25rem .6rem;border-radius:4px;font-size:.68rem;cursor:pointer;font-family:inherit}
-.clear-btn:hover{border-color:var(--err);color:var(--err)}
-.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.8rem;margin-top:1rem}
-.app-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;transition:all .2s;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;gap:.5rem}
-.app-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--acc);opacity:0;transition:opacity .2s}
-.app-card:hover{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 6px 20px rgba(229,193,90,.08)}
-.app-card:hover::before{opacity:1}
-.app-card.cat-jt::before{background:var(--acc)}
-.app-card.cat-film::before{background:var(--acc2)}
-.app-card.cat-tiktok::before{background:var(--acc3)}
-.app-card.cat-manga::before{background:#e87b9a}
-.app-card.cat-education::before{background:#4a9d6a}
-.app-card.cat-tech::before{background:#4a7bc8}
-.app-card.cat-monetize::before{background:#d4a017}
-.app-card.cat-bench::before{background:#8a8896}
-.app-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
-.app-num{font-family:var(--fm);font-size:.72rem;font-weight:700;color:var(--acc);padding:.15rem .5rem;background:rgba(229,193,90,.1);border:1px solid rgba(229,193,90,.25);border-radius:3px;letter-spacing:.05em;flex-shrink:0}
-.app-cat-tag{font-family:var(--fm);font-size:.6rem;padding:.15rem .5rem;border-radius:3px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;flex-shrink:0}
-.cat-jt .app-cat-tag{background:rgba(229,193,90,.12);color:var(--acc);border:1px solid rgba(229,193,90,.3)}
-.cat-film .app-cat-tag{background:rgba(232,123,53,.12);color:var(--acc2);border:1px solid rgba(232,123,53,.3)}
-.cat-tiktok .app-cat-tag{background:rgba(139,95,196,.12);color:var(--acc3);border:1px solid rgba(139,95,196,.3)}
-.cat-manga .app-cat-tag{background:rgba(232,123,154,.12);color:#e87b9a;border:1px solid rgba(232,123,154,.3)}
-.cat-education .app-cat-tag{background:rgba(74,157,106,.12);color:#4a9d6a;border:1px solid rgba(74,157,106,.3)}
-.cat-tech .app-cat-tag{background:rgba(74,123,200,.12);color:#4a7bc8;border:1px solid rgba(74,123,200,.3)}
-.cat-monetize .app-cat-tag{background:rgba(212,160,23,.12);color:#d4a017;border:1px solid rgba(212,160,23,.3)}
-.cat-bench .app-cat-tag{background:rgba(138,136,150,.12);color:var(--dim);border:1px solid rgba(138,136,150,.3)}
-.app-title{font-size:.92rem;font-weight:600;color:var(--ink);line-height:1.35}
-.app-desc{font-size:.75rem;color:var(--dim);line-height:1.5;flex:1}
-.app-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.3rem;padding-top:.5rem;border-top:1px solid var(--border)}
-.app-meta-tag{font-size:.6rem;font-family:var(--fm);color:var(--faint);padding:.12rem .4rem;background:var(--bg2);border-radius:3px;border:1px solid var(--border)}
-.no-results{text-align:center;padding:3rem 1rem;color:var(--faint);font-size:.9rem;font-family:var(--fm)}
-.no-results .icon{font-size:3rem;opacity:.3;margin-bottom:.8rem}
-footer{margin-top:2rem;padding:1.5rem 0;text-align:center;font-size:.72rem;color:var(--faint);border-top:1px solid var(--border);font-family:var(--fm);line-height:1.8}
-footer .hl{color:var(--acc)}
-.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-120px);background:var(--bg3);color:var(--ink);border:1px solid var(--border);border-left:3px solid var(--acc);padding:.85rem 1.4rem;border-radius:var(--r);font-size:.85rem;box-shadow:0 8px 32px rgba(0,0,0,.6);z-index:1000;opacity:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .35s;max-width:90vw;text-align:center}
+body{font-family:var(--fs);background:var(--bg);color:var(--ink);min-height:100vh;padding:1.5rem 1rem 24rem;font-size:15px;line-height:1.55;max-width:1000px;margin:0 auto}
+header{margin-bottom:1.2rem;text-align:center;padding:1rem 0 1.4rem;position:relative}
+header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:180px;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);opacity:.5}
+h1{font-size:1.9rem;font-weight:300;margin-bottom:.4rem;background:linear-gradient(135deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:.85rem;color:var(--dim);font-style:italic}
+.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-120px);background:var(--bg3);color:var(--ink);border:1px solid var(--border);border-left:3px solid var(--acc);padding:.85rem 1.4rem;border-radius:var(--r);font-size:.85rem;box-shadow:0 8px 32px rgba(0,0,0,.6);z-index:1000;opacity:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .35s;max-width:90vw;text-align:center;display:flex;align-items:center;gap:.6rem}
 .toast.visible{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.success{border-left-color:var(--ok)}
-.load-more-wrap{text-align:center;padding:2rem 0}
-.load-more-btn{padding:.8rem 2rem;border-radius:var(--r);border:1px solid var(--acc);background:rgba(229,193,90,.08);color:var(--acc);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.05em}
-.load-more-btn:hover{background:rgba(229,193,90,.15)}
-.load-more-btn:disabled{opacity:.4;cursor:not-allowed}
-@media(max-width:480px){
-h1{font-size:1.5rem}
-.apps-grid{grid-template-columns:1fr}
-body{padding:1rem .7rem 4rem}
-}
+.toast.success{border-left-color:var(--ok)}.toast.error{border-left-color:var(--err)}.toast.warn{border-left-color:var(--warn)}
+.banner{background:var(--panel);border:1px solid var(--border);border-left:2px solid var(--acc);padding:1rem 1.15rem;border-radius:var(--r);font-size:.8rem;color:var(--dim);margin-bottom:1.2rem;line-height:1.6}
+.banner strong{color:var(--ink)}.banner .hl{color:var(--acc)}.banner .hl2{color:var(--acc3)}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.3rem;margin-bottom:1rem}
+.panel.ok{box-shadow:inset 3px 0 0 var(--ok)}
+input[type=password],input[type=text],textarea{width:100%;padding:.85rem 1rem;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-family:var(--fm);font-size:.78rem;margin-bottom:.6rem}
+textarea{resize:vertical;min-height:76px;line-height:1.5}
+input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.btn{width:100%;padding:.85rem 1.2rem;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:.7rem;transition:all .2s;font-family:inherit}
+.btn:hover:not(:disabled){background:var(--bg3);border-color:var(--acc)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-primary{border-color:var(--acc);background:linear-gradient(135deg,rgba(232,123,53,.2),rgba(229,193,90,.15));color:var(--acc);font-size:1.15rem;padding:1.5rem;letter-spacing:.25em}
+.btn-primary:disabled{opacity:.5}
+.btn-stop{border-color:var(--err);color:var(--err);background:transparent;display:none}
+.btn-stop.visible{display:block}
+.status{font-size:.75rem;padding:.6rem .9rem;border-radius:var(--r);margin-bottom:.5rem;display:flex;align-items:center;gap:.6rem;background:var(--bg2);color:var(--dim);border:1px solid var(--border)}
+.status.ok{background:rgba(74,157,106,.08);color:var(--ok);border-color:rgba(74,157,106,.3)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--faint);flex-shrink:0}
+.status.ok .dot{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.hint{font-size:.72rem;color:var(--dim);margin-top:.5rem}
+.hint a{color:var(--acc);text-decoration:none}
+.keys-list{margin-top:.7rem}
+.key-row{padding:.4rem .7rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.35rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;font-family:var(--fm);font-size:.72rem}
+.key-row .key-id{color:var(--acc);font-weight:600;letter-spacing:.03em}
+.key-row .key-state{font-size:.62rem;padding:.15rem .5rem;border-radius:2px;background:rgba(74,157,106,.15);color:var(--ok);border:1px solid rgba(74,157,106,.3);letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.key-row .key-state.cool{background:rgba(212,160,23,.15);color:var(--warn);border-color:rgba(212,160,23,.3)}
+.key-row .key-state.dead{background:rgba(200,90,74,.15);color:var(--err);border-color:rgba(200,90,74,.3)}
+.section{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);margin-bottom:1rem;overflow:hidden}
+.section.hidden{display:none!important}
+.section-header{padding:1rem 1.2rem;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center}
+.section-title{font-size:.85rem;text-transform:uppercase;letter-spacing:.2em;color:var(--ink);font-weight:500;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.badge{display:inline-block;padding:.15rem .55rem;background:transparent;color:var(--acc);border:1px solid var(--border);border-radius:2px;font-size:.6rem;letter-spacing:.15em;font-weight:600}
+.chevron{font-size:.7rem;color:var(--faint);transition:transform .3s}
+.section.open .chevron{transform:rotate(180deg);color:var(--acc)}
+.section-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.section.open .section-body{max-height:20000px}
+.section-content{padding:0 1.2rem 1.2rem}
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:1.5rem 1rem;background:var(--bg2);text-align:center;cursor:pointer;transition:all .2s;position:relative;margin-bottom:.8rem}
+.upload-zone:hover{border-color:var(--acc);background:rgba(229,193,90,.03)}
+.upload-zone.loading{pointer-events:none;opacity:.6}
+.upload-zone input[type=file]{display:none}
+.upload-icon{font-size:2rem;opacity:.6;margin-bottom:.5rem}
+.upload-text{font-size:.9rem;font-weight:600;margin-bottom:.2rem}
+.upload-hint{font-size:.72rem;color:var(--dim)}
+.images-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.6rem;margin-top:.8rem}
+.image-card{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:var(--bg3);position:relative;aspect-ratio:9/16}
+.image-card img{width:100%;height:100%;object-fit:cover;display:block}
+.image-card .rm{position:absolute;top:4px;right:4px;width:24px;height:24px;background:rgba(200,90,74,.9);color:#fff;border:none;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.image-card .num{position:absolute;top:4px;left:4px;background:rgba(10,10,18,.85);color:var(--acc);padding:.15rem .45rem;border-radius:3px;font-size:.6rem;font-family:var(--fm);font-weight:700}
+.control-row{margin-bottom:1rem}
+.control-row:last-child{margin-bottom:0}
+.control-label{display:block;font-size:.72rem;color:var(--dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.15em;font-weight:600}
+select{width:100%;padding:.8rem .95rem;border-radius:var(--r);border:1px solid var(--border);background:var(--bg2);color:var(--ink);font-size:.88rem;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23e5c15a' d='M0 0l5 6 5-6z'/></svg>");background-repeat:no-repeat;background-position:right .95rem center;background-size:10px;font-family:inherit}
+select:focus{outline:none;border-color:var(--acc)}
+select option{background:var(--bg2);color:var(--ink)}
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:.8rem}
+.scene-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .3s;display:flex;flex-direction:column}
+.scene-card.generating{border-color:var(--acc)}
+.scene-card.done{border-color:var(--ok)}
+.scene-card.error{border-color:var(--err)}
+.scene-card-header{padding:.55rem .75rem;font-size:.7rem;font-family:var(--fm);color:var(--dim);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);gap:.5rem}
+.scene-card-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.scene-card-body{padding:.7rem}
+.scene-card-body video{width:100%;border-radius:2px;background:#000;display:block}
+.scene-placeholder{width:100%;aspect-ratio:9/16;background:#0a0a12;border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:.7rem;font-family:var(--fm);flex-direction:column;gap:.5rem;text-align:center;padding:.5rem}
+.spinner-mini{width:14px;height:14px;border:2px solid rgba(229,193,90,.2);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.player-overlay{position:fixed;inset:0;background:#000;z-index:2000;display:none;align-items:center;justify-content:center;cursor:pointer}
+.player-overlay.visible{display:flex}
+#player-canvas{display:block;max-width:100vw;max-height:100vh;background:#000}
+.player-hint{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.55);font-size:.75rem;font-family:var(--fm);letter-spacing:.15em;text-transform:uppercase;pointer-events:none;opacity:1;transition:opacity .5s;text-align:center;background:rgba(0,0,0,.4);padding:.35rem .8rem;border-radius:3px}
+.player-hint.hidden{opacity:0}
+.player-controls{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;margin-top:.6rem}
+.player-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.6rem}
+.player-row .btn{margin-bottom:0;flex:1;min-width:140px}
+.status-bar{position:fixed;bottom:230px;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);color:var(--ink);padding:.75rem 1.1rem;font-size:.78rem;display:flex;align-items:center;gap:.7rem;transform:translateY(200%);transition:transform .35s cubic-bezier(.2,.9,.3,1);z-index:150;font-family:var(--fm);box-shadow:0 -4px 20px rgba(0,0,0,.4)}
+.status-bar.visible{transform:translateY(0)}
+.spinner{width:12px;height:12px;border:2px solid rgba(229,193,90,.2);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+.debug-panel{position:fixed;bottom:0;left:0;right:0;height:220px;background:#05050a;border-top:2px solid var(--acc);z-index:200;display:flex;flex-direction:column;font-family:var(--fm);box-shadow:0 -8px 32px rgba(0,0,0,.7);transition:height .3s ease}
+.debug-panel.collapsed{height:40px}
+.debug-header{display:flex;justify-content:space-between;align-items:center;padding:.4rem .7rem;background:linear-gradient(90deg,#0f0f18,#1a1a28);border-bottom:1px solid var(--border);flex-shrink:0;user-select:none}
+.debug-tabs{display:flex;gap:.25rem}
+.debug-tab{background:transparent;border:1px solid var(--border);color:var(--dim);font-size:.68rem;padding:.35rem .7rem;border-radius:3px;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;font-family:inherit}
+.debug-tab.active{color:var(--acc);border-color:var(--acc);background:rgba(229,193,90,.08)}
+.debug-actions{display:flex;gap:.3rem}
+.debug-actions button{background:transparent;border:1px solid var(--border);color:var(--dim);font-size:.62rem;padding:.28rem .55rem;border-radius:2px;cursor:pointer;font-family:inherit}
+.debug-actions button:hover{color:var(--acc);border-color:var(--acc)}
+.debug-body{flex:1;overflow-y:auto;padding:.6rem .8rem 1rem;font-size:.72rem;line-height:1.5;color:#c8c8d0}
+.debug-body.hidden{display:none}
+.journal-body .j-entry{display:flex;gap:.6rem;padding:.25rem 0;align-items:flex-start;border-bottom:1px dashed rgba(255,255,255,.04)}
+.journal-body .j-time{font-family:var(--fm);font-size:.7rem;color:var(--faint);flex-shrink:0;min-width:64px;padding-top:.15rem}
+.journal-body .j-msg{color:#d8d8e0;flex:1;word-break:break-word}
+.journal-body .j-entry.highlight .j-msg{color:var(--acc);font-weight:600}
+.journal-body .j-entry.success .j-msg{color:var(--ok)}
+.journal-body .j-entry.warn .j-msg{color:var(--warn)}
+.journal-body .j-entry.error .j-msg{color:var(--err)}
+.debug-entry{margin-bottom:.3rem;padding:.25rem .4rem;border-left:2px solid transparent;border-radius:2px;word-break:break-word}
+.debug-entry.info{border-left-color:var(--faint)}
+.debug-entry.success{border-left-color:var(--ok);background:rgba(74,157,106,.04)}
+.debug-entry.warn{border-left-color:var(--warn);background:rgba(212,160,23,.04)}
+.debug-entry.error{border-left-color:var(--err);background:rgba(200,90,74,.06);color:#f0a0a0}
+.debug-entry.api{border-left-color:var(--acc)}
+.debug-entry.response{border-left-color:var(--acc2)}
+.debug-time{color:var(--faint);margin-right:.5rem;font-size:.65rem}
+.debug-cat{color:var(--acc);font-weight:600;margin-right:.4rem;font-size:.65rem}
+.debug-msg{color:#d8d8e0}
+.debug-data{margin-top:.3rem;padding:.4rem .5rem;background:#0a0a12;border:1px solid var(--border);border-radius:2px;font-size:.68rem;color:#a8d8b0;max-height:160px;overflow:auto;white-space:pre-wrap;word-break:break-all;line-height:1.4}
+.hidden{display:none!important}
+@media(max-width:480px){h1{font-size:1.55rem}.videos-grid{grid-template-columns:1fr}body{padding-bottom:26rem}.debug-panel{height:200px}.status-bar{bottom:210px}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>Catalogue Atelier Vidéo IA</h1>
-<p class="subtitle">1300 applications générées par combinaison · API Agnes</p>
-<div class="stats-bar" id="stats-bar"></div>
+<h1>Multi-Image Composition</h1>
+<p class="subtitle">Fusionne plusieurs photos en une seule vidéo cohérente</p>
 </header>
 
-<div class="controls">
-<div class="search-wrap">
-<span class="search-icon">🔍</span>
-<input type="text" id="search-input" placeholder="Rechercher par nom, numéro ou mot-clé…" autocomplete="off">
-</div>
-<div class="cat-filters" id="cat-filters"></div>
-<div class="results-info">
-<span>Résultats : <strong id="result-count">0</strong> application(s)</span>
-<button type="button" class="clear-btn" id="clear-btn">✕ Effacer</button>
-</div>
+<div class="banner">
+<strong>Le principe :</strong> importez <strong class="hl">2 à 6 photos</strong> (famille, amis, lieux, objets), l'IA analyse chacune, puis génère une <strong class="hl2">vidéo unique</strong> qui les fusionne en une scène cohérente — même lumière, même style, même ambiance.
 </div>
 
-<div class="apps-grid" id="apps-grid"></div>
-
-<div class="load-more-wrap" id="load-more-wrap" style="display:none;">
-<button type="button" class="load-more-btn" id="load-more-btn">Charger plus (50 restantes)</button>
+<!-- CLÉS API -->
+<div class="panel" id="api-panel">
+<label style="display:block;font-size:.72rem;color:var(--dim);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.15em;font-weight:600;">Clés API Agnes — une par ligne (N clés = N workers)</label>
+<textarea id="api-keys-input" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx&#10;sk-yyyyyyyyyyyyyyyyyyyyyyyy" rows="3" spellcheck="false" autocomplete="off"></textarea>
+<button type="button" class="btn" id="api-save-btn">Enregistrer les clés</button>
+<div class="status" id="api-status-line"><span class="dot"></span><span id="api-status-text">Aucune clé API enregistrée</span></div>
+<div class="keys-list" id="api-keys-status"></div>
+<div class="hint">Clés gratuites sur <a href="https://platform.agnes-ai.com" target="_blank">platform.agnes-ai.com</a></div>
 </div>
 
-<div class="no-results" id="no-results" style="display:none;">
-<div class="icon">🔍</div>
-<div>Aucune application ne correspond à votre recherche.</div>
+<!-- PHOTOS -->
+<div class="section open" id="section-images">
+<div class="section-header" data-toggle="section-images">
+<span class="section-title">📸 Photos à fusionner <span class="badge" id="images-count">0 / 6</span></span>
+<span class="chevron">▼</span>
+</div>
+<div class="section-body"><div class="section-content">
+<label class="upload-zone" id="upload-zone">
+<input type="file" id="file-input" accept="image/*" multiple>
+<div class="upload-icon">＋</div>
+<div class="upload-text">Ajoutez vos photos</div>
+<div class="upload-hint">2 à 6 photos — famille, amis, lieux, objets, animaux…</div>
+</label>
+<div class="images-grid" id="images-grid"></div>
+</div></div>
 </div>
 
-<footer>
-<p><span class="hl">Atelier Vidéo IA</span> · Catalogue complet de 1300 applications</p>
-<p>Propulsé par <span class="hl">Agnes AI</span> · agnes-video-v2.0 · agnes-image-2.1-flash · agnes-2.5-flash</p>
-</footer>
+<!-- RÉGLAGES -->
+<div class="section open" id="section-settings">
+<div class="section-header" data-toggle="section-settings">
+<span class="section-title">⚙️ Réglages de composition</span>
+<span class="chevron">▼</span>
+</div>
+<div class="section-body"><div class="section-content">
+<div class="control-row">
+<label class="control-label">Type de composition</label>
+<select id="comp-type">
+<option value="merge">🔀 Fusion — tous les éléments dans une seule scène</option>
+<option value="transition">🎞️ Transition — passage d'une photo à l'autre</option>
+<option value="collage">🖼️ Collage animé — toutes les photos visibles ensemble</option>
+<option value="story">📖 Récit — chaque photo devient un plan d'une histoire</option>
+</select>
+</div>
+<div class="control-row">
+<label class="control-label">Ambiance générale</label>
+<select id="mood-select">
+<option value="warm">🌅 Chaleureuse — lumière dorée, coucher de soleil</option>
+<option value="cinematic" selected>🎬 Cinématique — contraste, profondeur</option>
+<option value="nostalgic">📷 Nostalgique — grain vintage, sépia</option>
+<option value="dreamy">💭 Onirique — brume, flou, pastel</option>
+<option value="dramatic">🌓 Dramatique — ombres fortes</option>
+<option value="natural">🌿 Naturelle — lumière douce</option>
+</select>
+</div>
+<div class="control-row">
+<label class="control-label">Durée de la vidéo</label>
+<select id="duration-select">
+<option value="121">5 secondes</option>
+<option value="145" selected>6 secondes (recommandé)</option>
+<option value="169">7 secondes</option>
+<option value="241">10 secondes</option>
+</select>
+</div>
+<div class="control-row">
+<label class="control-label">Palette de couleurs</label>
+<select id="palette-select">
+<option value="auto" selected>Auto — d'après les photos</option>
+<option value="pink-mint">Rose poudré & Menthe</option>
+<option value="coral-teal">Corail & Turquoise</option>
+<option value="mustard-blue">Moutarde & Bleu ciel</option>
+<option value="lavender">Lavande & Ocre</option>
+<option value="sage-blush">Sauge & Blush</option>
+<option value="ochre-rose">Ocre & Rose fané</option>
+</select>
+</div>
+<div class="control-row">
+<label class="control-label">Instruction personnalisée (optionnel)</label>
+<textarea id="custom-prompt" placeholder="Ex : Les personnes se tiennent par la main dans un champ de fleurs au coucher du soleil."></textarea>
+</div>
+</div></div>
+</div>
 
+<!-- BOUTON GÉNÉRATION -->
+<button type="button" class="btn btn-primary" id="generate-btn" disabled>
+🎬 Fusionner les photos en vidéo
+</button>
+<button type="button" class="btn btn-stop" id="stop-btn">⏹ Arrêter</button>
+
+<!-- VIDÉO GÉNÉRÉE -->
+<div class="section hidden" id="section-video">
+<div class="section-header" data-toggle="section-video">
+<span class="section-title">🎞️ Vidéo fusionnée</span>
+<span class="chevron">▼</span>
+</div>
+<div class="section-body"><div class="section-content">
+<div class="videos-grid" id="videos-grid"></div>
+</div></div>
+</div>
+
+<!-- PLAYER -->
+<div class="section hidden" id="section-player">
+<div class="section-header" data-toggle="section-player">
+<span class="section-title">▶ Lecture</span>
+<span class="chevron">▼</span>
+</div>
+<div class="section-body"><div class="section-content">
+<div class="player-controls">
+<div class="player-row">
+<button type="button" class="btn" id="play-film-btn" disabled>▶ Lire la vidéo</button>
+</div>
+</div>
+</div></div>
+</div>
+
+<div class="status-bar" id="status-bar"><div class="spinner"></div><span id="status-text">Préparation…</span></div>
 <div class="toast" id="toast"><span id="toast-icon">✓</span><span id="toast-text">Message</span></div>
+
+<div class="debug-panel" id="debug-panel">
+<div class="debug-header" id="debug-header">
+<div class="debug-tabs">
+<button type="button" class="debug-tab active" data-tab="journal" id="tab-journal">📻 Journal</button>
+<button type="button" class="debug-tab" data-tab="tech" id="tab-tech">🖥️ Technique</button>
+</div>
+<div class="debug-actions">
+<button type="button" id="debug-copy-btn">Copier</button>
+<button type="button" id="debug-clear-btn">Effacer</button>
+<button type="button" id="debug-collapse-btn">−</button>
+</div>
+</div>
+<div class="debug-body journal-body" id="journal-body"></div>
+<div class="debug-body hidden" id="tech-body"></div>
+</div>
+
+<div class="player-overlay" id="player-overlay">
+<canvas id="player-canvas"></canvas>
+<div class="player-hint" id="player-hint-overlay">Échap ou clic pour quitter</div>
+</div>
 
 <script>
 // ══════════════════════════════════════════════════════════════════
-// CATÉGORIES
+// CONFIG
 // ══════════════════════════════════════════════════════════════════
-const CATEGORIES = {
-jt:{label:'JT & Info',emoji:'📺'},
-film:{label:'Films & Séries',emoji:'🎬'},
-tiktok:{label:'TikTok & Monétisation',emoji:'📱'},
-manga:{label:'Mangas & BD',emoji:'📚'},
-education:{label:'Éducation',emoji:'🎓'},
-tech:{label:'Outils techniques',emoji:'🔧'},
-monetize:{label:'Monétisation',emoji:'💰'},
-bench:{label:'Benchmarks',emoji:'📊'}
-};
+const API_BASE='https://apihub.agnes-ai.com/v1';
+const POLL_BASE='https://apihub.agnes-ai.com/agnesapi';
+const MODEL_TEXT='agnes-2.5-flash';
+const MODEL_IMAGE='agnes-image-2.1-flash';
+const MODEL_VIDEO='agnes-video-v2.0';
+const FRAME_RATE=24;
+const VIDEO_FIRST_POLL_DELAY_SEC=60;
+const VIDEO_POLL_INTERVALS=[8,8,12,12,20,20,25];
+const VIDEO_MAX_POLL_ATTEMPTS=100;
+const API_KEYS_STORAGE='multiimage_comp_api_keys_v1';
+const REF_MAX_SIDE=1280;
+const DEBUG_MAX=800;
+const MAX_IMAGES=6;
 
-// ══════════════════════════════════════════════════════════════════
-// GÉNÉRATEUR D'APPLICATIONS — 1300 au total
-// ══════════════════════════════════════════════════════════════════
-const SUBJECTS = [
-'Sport','Politique','Cinéma','Musique','Cuisine','Voyage','Nature','Animaux',
-'Technologie','Science','Santé','Éducation','Finance','Immobilier','Mode',
-'Art','Littérature','Gaming','Automobile','Espace'
+const WA_PALETTES=[
+{id:'pink-mint',label:'Rose poudré & Menthe',colors:['#F4C2C2','#A8D8B9','#E5B95A','#F5F0E1','#7B9FB0']},
+{id:'coral-teal',label:'Corail & Turquoise',colors:['#E8A87C','#85CDCA','#F4E4BA','#D4A5A5','#7C6A8B']},
+{id:'mustard-blue',label:'Moutarde & Bleu ciel',colors:['#F7D794','#778BEB','#E77F67','#F1E7D0','#3B4B55']},
+{id:'lavender',label:'Lavande & Ocre',colors:['#C5B7D9','#E5B95A','#F4A6A6','#F5EFE0','#7A8B7E']},
+{id:'sage-blush',label:'Sauge & Blush',colors:['#B8C9A8','#F1C6C6','#E8B44A','#F5F0E1','#5B6E7A']},
+{id:'ochre-rose',label:'Ocre & Rose fané',colors:['#D9A44A','#E8B8B8','#8FAE8B','#F4E8D0','#6B5B7B']}
 ];
 
-const FORMATS = {
-jt:[
-{t:'JT Quotidien',d:'Journal télévisé complet avec présentateur et reportages'},
-{t:'JT Flash',d:'Format court 60s pour réseaux sociaux'},
-{t:'JT Spécialisé',d:'JT dédié à un thème unique'},
-{t:'JT Multi-Partis',d:'Comparaison des angles politiques'},
-{t:'JT Régional',d:'JT hyper-local pour une région'},
-{t:'JT Étudiant',d:'JT pour lycéens et étudiants'},
-{t:'JT Syndical',d:'JT pour organisations syndicales'},
-{t:'JT Associatif',d:'JT pour associations'}
-],
-film:[
-{t:'Court-Métrage',d:'Film court de 3 à 5 scènes'},
-{t:'Moyen-Métrage',d:'Film de 8 à 12 scènes'},
-{t:'Documentaire',d:'Documentaire narré par IA'},
-{t:'Film Noir',d:'Polar sombre avec enquête'},
-{t:'Film Cyberpunk',d:'Futur dystopique néon'},
-{t:'Film Fantasy',d:'Monde magique et créatures'},
-{t:'Film Historique',d:'Reconstitution d\'époque'},
-{t:'Film Expérimental',d:'Structure narrative déstructurée'}
-],
-tiktok:[
-{t:'TikTok Viral',d:'Format vertical 60s optimisé vues'},
-{t:'Reels Instagram',d:'Format 30s avec transition'},
-{t:'YouTube Shorts',d:'Format 60s avec hook'},
-{t:'Story 24h',d:'Série de 6 stories'},
-{t:'Live Stream',d:'Overlay et alertes animées'},
-{t:'Podcast Vidéo',d:'Podcast avec visuels générés'},
-{t:'Clip Musical',d:'Vidéo musicale synchronisée'},
-{t:'Défi TikTok',d:'Challenge viral chorégraphié'}
-],
-manga:[
-{t:'Manga Seinen',d:'Manga adulte sombre'},
-{t:'Manga Shonen',d:'Manga action jeunesse'},
-{t:'Manga Shojo',d:'Manga romantique'},
-{t:'BD Franco-Belge',d:'Ligne claire style Hergé'},
-{t:'Comic US',d:'Super-héros style Marvel'},
-{t:'Webtoon',d:'Format vertical mobile'},
-{t:'Manhwa',d:'Style coréen moderne'},
-{t:'Roman Photo',d:'Photo-roman moderne'}
-],
-education:[
-{t:'Cours Vidéo',d:'Leçon pédagogique animée'},
-{t:'Tutoriel',d:'Étapes démontrées visuellement'},
-{t:'Explication',d:'Vulgarisation d\'un concept'},
-{t:'Quiz Interactif',d:'Questions avec réponses animées'},
-{t:'Formation Pro',d:'Module de formation entreprise'},
-{t:'Présentation',d:'Slides animées et narration'},
-{t:'Résumé Livre',d:'Synthèse visuelle d\'un ouvrage'},
-{t:'Fiche Révision',d:'Mémorisation par association visuelle'}
-],
-tech:[
-{t:'Analyse Vision',d:'Extraction de style depuis une image'},
-{t:'Multi-Images',d:'Fusion de plusieurs références'},
-{t:'Keyframes Studio',d:'Chaînage premier/dernier frame'},
-{t:'Multi-Workers',d:'Pool de clés API parallèle'},
-{t:'Parser JSON',d:'Validation et réparation JSON'},
-{t:'Polling Multi',d:'Test des 4 endpoints API'},
-{t:'Format 1K',d:'Comparaison formats image'},
-{t:'Fallback Programmatique',d:'Scénario de secours si échec'}
-],
-monetize:[
-{t:'Abonnement',d:'Système d\'abonnement mensuel'},
-{t:'Pay-per-View',d:'Paiement à la vue'},
-{t:'Sponsoring',d:'Intégration de sponsors'},
-{t:'Affiliation',d:'Liens d\'affiliation intégrés'},
-{t:'Formation Vendue',d:'Vente de formation via vidéo'},
-{t:'Template Vendu',d:'Pack de templates vendu'},
-{t:'Service B2B',d:'Prestation pour entreprises'},
-{t:'Billetterie',d:'Vente de billets via vidéo'}
-],
-bench:[
-{t:'Benchmark Clés',d:'Comparaison performances multi-clés'},
-{t:'Benchmark Styles',d:'Comparaison de styles visuels'},
-{t:'Benchmark Palettes',d:'Comparaison des palettes WA'},
-{t:'Benchmark Combos',d:'Combinaisons de réalisateurs'},
-{t:'Benchmark Formats',d:'Comparaison formats vidéo'},
-{t:'Benchmark Durées',d:'5s vs 8s vs 10s'},
-{t:'Benchmark Monétisation',d:'Quelles plateformes rapportent'},
-{t:'Benchmark Sujets',d:'Quels sujets engagent'}
-]
+const MOOD_PROMPTS={
+warm:'warm golden hour sunlight, soft amber glow, long shadows, hazy warm tones, sunset atmosphere',
+cinematic:'cinematic film look, dramatic lighting, subtle film grain, shallow depth of field, professional color grading',
+nostalgic:'vintage film aesthetic, grainy texture, warm faded colors, soft focus, nostalgic atmosphere',
+dreamy:'dreamy ethereal atmosphere, soft diffused light, gentle blur, pastel tones, magical mood',
+dramatic:'high contrast dramatic lighting, deep shadows, bright highlights, chiaroscuro',
+natural:'soft diffused natural light, gentle shadows, balanced tones, authentic atmosphere'
 };
 
-// Génération : 20 sujets × 8 catégories × 8 formats = 1280 + 20 bonus = 1300
-const APPS = [];
+const COMP_TYPES={
+merge:{label:'Fusion',prompt:'merge all the subjects from the provided images into ONE single coherent scene, keeping every person, object, and detail visible, seamless integration, consistent lighting across all elements'},
+transition:{label:'Transition',prompt:'create a smooth cinematic transition between the provided images, one scene morphing into the next, seamless visual continuity, matching lighting'},
+collage:{label:'Collage animé',prompt:'arrange all the provided images into a symmetric animated collage, each element visible, unified lighting, cohesive artistic composition'},
+story:{label:'Récit',prompt:'create a visual narrative where each provided image is one scene in a continuous story, flowing transitions, consistent characters and atmosphere'}
+};
 
-Object.keys(FORMATS).forEach(cat=>{
-  SUBJECTS.forEach(subject=>{
-    FORMATS[cat].forEach(fmt=>{
-      APPS.push({
-        num: APPS.length + 1,
-        cat,
-        title: subject + ' ' + fmt.t,
-        desc: fmt.d + ' — spécialisé ' + subject.toLowerCase(),
-        tags: [subject.toLowerCase(), cat]
-      });
-    });
-  });
-});
+// ══════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════
+const state={
+keyPool:[],
+isRunning:false,
+stopRequested:false,
+images:[],
+isGeneratingImages:false,
+compositionStyle:null,
+videos:[],
+isPlayingFilm:false,
+playRAF:null,
+workingPollUrlBuilder:null
+};
 
-// 20 bonus (n°1281-1300)
-const BONUS = [
-{cat:'jt',t:'JT LFI Quotidien',d:'JT dédié à La France insoumise'},
-{cat:'jt',t:'JT Multi-Partis',d:'Comparaison des partis politiques'},
-{cat:'film',t:'Film Chaton Kung-Fu',d:'Chaton kung-fu style Wes Anderson'},
-{cat:'film',t:'Film Chaton Détective',d:'Chaton détective en imperméable'},
-{cat:'tiktok',t:'TikTok Chaton',d:'Chaton présentateur quotidien'},
-{cat:'tiktok',t:'TikTok Viral 15s',d:'Format ultra-court viral'},
-{cat:'manga',t:'Manga Chaton',d:'Chaton héros manga'},
-{cat:'manga',t:'Webtoon Chaton',d:'Chaton en webtoon vertical'},
-{cat:'education',t:'Cours Chaton',d:'Chaton prof tweed pastel'},
-{cat:'education',t:'Podcast Éducatif',d:'Podcast avec chaton'},
-{cat:'tech',t:'Vision Chaton',d:'Analyse vision spécialisée chaton'},
-{cat:'tech',t:'Multi-Images Chaton',d:'Fusion multi-images chaton'},
-{cat:'monetize',t:'JT Chaton Abonnement',d:'Abonnement JT chaton'},
-{cat:'monetize',t:'Pack Chaton Templates',d:'Templates chaton vendables'},
-{cat:'bench',t:'Benchmark Chatons',d:'Quel chaton plaît le plus'},
-{cat:'bench',t:'Benchmark Wes Anderson',d:'Combien de plans WA fonctionnent'},
-{cat:'jt',t:'JT Régional Chat',d:'Chaton présentateur régional'},
-{cat:'film',t:'Série Chaton 10 ép.',d:'Série complète 10 épisodes'},
-{cat:'tiktok',t:'Série TikTok Chaton',d:'30 jours de chaton'},
-{cat:'education',t:'Formation Chaton',d:'Formation complète chaton'}
+// ══════════════════════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════════════════════
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function setStatus(text){const b=document.getElementById('status-bar');const t=document.getElementById('status-text');if(!b||!t)return;if(text){b.classList.add('visible');t.textContent=text}else b.classList.remove('visible')}
+let toastTimeout=null;
+function showToast(message,type='success',duration=2500){const t=document.getElementById('toast');const i=document.getElementById('toast-icon');const x=document.getElementById('toast-text');if(!t||!i||!x)return;t.classList.remove('visible','success','error','warn');void t.offsetWidth;const icons={success:'✓',error:'✕',warn:'⚠'};i.textContent=icons[type]||'✓';x.textContent=message;t.classList.add(type);requestAnimationFrame(()=>t.classList.add('visible'));if(toastTimeout)clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>t.classList.remove('visible'),duration)}
+function nowTime(){return new Date().toLocaleTimeString('fr-FR',{hour12:false})}
+
+function journalLog(msg,level){
+level=level||'info';
+const body=document.getElementById('journal-body');
+if(!body)return;
+const icons={info:'·',highlight:'▶',success:'✅',warn:'⚠️',error:'❌',image:'📸',video:'🎥',key:'🔑'};
+const entry=document.createElement('div');
+entry.className='j-entry '+level;
+entry.innerHTML='<span class="j-time">'+esc(nowTime())+'</span><span class="j-icon">'+(icons[level]||'·')+'</span><span class="j-msg">'+esc(msg)+'</span>';
+body.appendChild(entry);
+body.scrollTop=body.scrollHeight;
+while(body.children.length>DEBUG_MAX)body.removeChild(body.firstChild);
+}
+
+let debugCount=0,debugEntries=[],debugCollapsed=false;
+function debugLog(level,category,message,data){const body=document.getElementById('tech-body');if(!body)return;const time=nowTime();const entry=document.createElement('div');entry.className='debug-entry '+level;let html='<span class="debug-time">'+time+'</span><span class="debug-cat">['+esc(category)+']</span><span class="debug-msg">'+esc(message)+'</span>';if(data!==undefined&&data!==null){let ds;if(typeof data==='string')ds=data;else{try{ds=JSON.stringify(data,null,2)}catch(e){ds=String(data)}}if(ds.length>3000)ds=ds.slice(0,3000)+'\n…[tronqué]';html+='<pre class="debug-data">'+esc(ds)+'</pre>'}entry.innerHTML=html;body.appendChild(entry);debugEntries.push({time,level,category,message});if(debugEntries.length>DEBUG_MAX)debugEntries.shift();while(body.children.length>DEBUG_MAX)body.removeChild(body.firstChild);body.scrollTop=body.scrollHeight;debugCount++;}
+function clearDebug(){const b=document.getElementById('tech-body');const j=document.getElementById('journal-body');if(b)b.innerHTML='';if(j)j.innerHTML='';debugEntries=[];debugCount=0;}
+function copyDebug(){const lines=debugEntries.map(e=>e.time+' ['+e.category+'] '+e.message).join('\n');const finish=(ok)=>showToast(ok?'Console copiée':'Copie impossible',ok?'success':'error');try{if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(lines).then(()=>finish(true)).catch(()=>legacyCopy(lines,finish));return}}catch(e){}legacyCopy(lines,finish)}
+function legacyCopy(text,cb){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(ta);cb(ok)}
+function toggleDebugCollapse(){const p=document.getElementById('debug-panel');const b=document.getElementById('debug-collapse-btn');if(!p||!b)return;debugCollapsed=!debugCollapsed;p.classList.toggle('collapsed',debugCollapsed);b.textContent=debugCollapsed?'+':'−'}
+function switchTab(tab){const j=document.getElementById('journal-body');const t=document.getElementById('tech-body');const tj=document.getElementById('tab-journal');const tt=document.getElementById('tab-tech');if(!j||!t)return;if(tab==='journal'){j.classList.remove('hidden');t.classList.add('hidden');tj.classList.add('active');tt.classList.remove('active')}else{t.classList.remove('hidden');j.classList.add('hidden');tt.classList.add('active');tj.classList.remove('active');t.scrollTop=t.scrollHeight}}
+
+// ══════════════════════════════════════════════════════════════════
+// MULTI-CLÉS API
+// ══════════════════════════════════════════════════════════════════
+function getStoredKeys(){try{const raw=localStorage.getItem(API_KEYS_STORAGE);if(!raw)return[];const arr=JSON.parse(raw);if(!Array.isArray(arr))return[];return arr.filter(k=>typeof k==='string'&&k.trim().length>0)}catch(e){return[]}}
+function setStoredKeys(keys){try{localStorage.setItem(API_KEYS_STORAGE,JSON.stringify(keys))}catch(e){}}
+function refreshKeyPool(){const stored=getStoredKeys();const old=state.keyPool||[];state.keyPool=stored.map(k=>{const existing=old.find(p=>p.key===k);return existing||{key:k,lastUsed:0,cooldownUntil:0,active:true,errorCount:0}})}
+function hasActiveKey(){return state.keyPool.some(k=>k.active)}
+function getReadyKey(){const now=Date.now();const active=state.keyPool.filter(k=>k.active);if(active.length===0)return{key:null,waitMs:0};const ready=active.filter(k=>!k.cooldownUntil||k.cooldownUntil<=now);if(ready.length===0){const soonest=active.reduce((a,b)=>(a.cooldownUntil||0)<(b.cooldownUntil||0)?a:b);return{key:null,waitMs:Math.max(1000,(soonest.cooldownUntil||0)-now)}}ready.sort((a,b)=>(a.lastUsed||0)-(b.lastUsed||0));return{key:ready[0],waitMs:0}}
+async function acquireKey(label){while(true){if(state.stopRequested)throw new Error('Arrêt demandé');const{key,waitMs}=getReadyKey();if(key){key.lastUsed=Date.now();return key}if(waitMs===0)throw new Error('Aucune clé API active');debugLog('warn',label,'Toutes les clés en cooldown — attente '+Math.round(waitMs/1000)+'s');setStatus('Clés en cooldown — attente '+Math.round(waitMs/1000)+'s');await sleep(waitMs)}}
+function renderKeysStatus(){const el=document.getElementById('api-keys-status');if(!el)return;if(state.keyPool.length===0){el.innerHTML='';return}const now=Date.now();el.innerHTML=state.keyPool.map((k,i)=>{let stateHtml='<span class="key-state">Active</span>';if(!k.active)stateHtml='<span class="key-state dead">Inactive</span>';else if(k.cooldownUntil>now){const sec=Math.ceil((k.cooldownUntil-now)/1000);stateHtml='<span class="key-state cool">Cooldown '+sec+'s</span>'}return'<div class="key-row"><span class="key-id">#'+(i+1)+' · '+esc(k.key.slice(0,8))+'…'+esc(k.key.slice(-4))+'</span>'+stateHtml+'</div>'}).join('')}
+function saveKeysFromUI(){const input=document.getElementById('api-keys-input');if(!input)return;const raw=input.value||'';const keys=raw.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);const valid=keys.filter(k=>k.startsWith('sk-'));const invalid=keys.filter(k=>!k.startsWith('sk-'));if(invalid.length>0){if(!confirm(invalid.length+' clé(s) ne commencent pas par "sk-". Les ignorer ?'))return}setStoredKeys(valid);refreshKeyPool();updateApiPanel();renderKeysStatus();if(valid.length===0)showToast('Aucune clé valide','warn');else showToast(valid.length+' clé(s) enregistrée(s) ✓','success');journalLog(valid.length+' clé(s) active(s). Parallélisme : '+valid.length+'.','key')}
+function updateApiPanel(){const panel=document.getElementById('api-panel');const input=document.getElementById('api-keys-input');const line=document.getElementById('api-status-line');const text=document.getElementById('api-status-text');if(!panel||!input||!line||!text)return;refreshKeyPool();const n=state.keyPool.length;if(n>0){panel.classList.add('ok');line.classList.add('ok');text.textContent=n+' clé(s) active(s)';input.value=state.keyPool.map(k=>k.key).join('\n')}else{panel.classList.remove('ok');line.classList.remove('ok');text.textContent='Aucune clé API enregistrée';input.value=''}renderKeysStatus();updateButtons()}
+
+// ══════════════════════════════════════════════════════════════════
+// API FETCH
+// ══════════════════════════════════════════════════════════════════
+async function apiFetch(url,options,label,maxAttempts){
+options=options||{};
+label=label||'API';
+maxAttempts=(typeof maxAttempts==='number'&&maxAttempts>0)?maxAttempts:6;
+let lastErr=null;
+for(let attempt=0;attempt<maxAttempts;attempt++){
+if(state.stopRequested)throw new Error('Arrêt demandé');
+let keyObj=null;
+try{keyObj=await acquireKey(label)}catch(e){throw e}
+const method=options.method||'GET';
+let bodyPreview=null;
+if(options.body){try{const p=JSON.parse(options.body);const c=JSON.parse(JSON.stringify(p));const redact=(o)=>{if(Array.isArray(o)){o.forEach(redact);return}if(o&&typeof o==='object'){for(const k in o){if(typeof o[k]==='string'&&o[k].length>140)o[k]=o[k].slice(0,100)+'…[len '+o[k].length+']';else if(typeof o[k]==='object')redact(o[k])}}};redact(c);bodyPreview=c}catch(e){bodyPreview=String(options.body).slice(0,400)}}
+debugLog('api','REQ '+label,method+' '+url+' · clé #'+(state.keyPool.indexOf(keyObj)+1)+' '+keyObj.key.slice(-4)+' (essai '+(attempt+1)+'/'+maxAttempts+')',bodyPreview);
+const headers=Object.assign({},options.headers||{},{'Authorization':'Bearer '+keyObj.key});
+const finalOptions=Object.assign({},options,{headers});
+try{
+const t0=Date.now();
+const res=await fetch(url,finalOptions);
+const dt=Date.now()-t0;
+let retryAfter=0;
+try{retryAfter=parseInt(res.headers.get('Retry-After')||'0',10)||0}catch(e){}
+let errorText='';
+if(!res.ok){try{errorText=(await res.clone().text()).slice(0,1200)}catch(e){}}
+debugLog('response','RÉP '+label,'HTTP '+res.status+' en '+dt+'ms · clé '+keyObj.key.slice(-4),errorText||undefined);
+if(res.ok){keyObj.errorCount=0;return res}
+if([400,401,403,404].includes(res.status)){
+if(res.status===401||res.status===403){keyObj.errorCount=(keyObj.errorCount||0)+1;if(keyObj.errorCount>=3){keyObj.active=false;renderKeysStatus()}}
+const err=new Error('HTTP '+res.status+' — '+errorText.slice(0,400));err.status=res.status;err.body=errorText;throw err;
+}
+if(res.status===429){
+const wait=retryAfter>0?retryAfter:Math.min(120,20+attempt*15);
+keyObj.cooldownUntil=Date.now()+wait*1000;
+debugLog('warn','RATELIMIT','Clé '+keyObj.key.slice(-4)+' → cooldown '+wait+'s');
+renderKeysStatus();
+const{key:next}=getReadyKey();
+if(next&&next!==keyObj){debugLog('info','ROTATION','Nouvelle clé : '+next.key.slice(-4));continue}
+setStatus('Limite API — attente '+wait+'s');
+await sleep(Math.min(wait*1000,3000));continue;
+}
+if([500,502,503,504,520,522,524].includes(res.status)){const wait=Math.min(60,8+attempt*6);setStatus('Service occupé — '+wait+'s');await sleep(wait*1000);continue}
+const wait=Math.min(60,6+attempt*5);
+debugLog('warn','HTTP','HTTP '+res.status+' — retry dans '+wait+'s');
+await sleep(wait*1000);
+}catch(e){
+if(e.message==='Arrêt demandé')throw e;
+if(e.status&&[400,401,403,404].includes(e.status))throw e;
+lastErr=e;
+const wait=Math.min(45,4+attempt*4);
+debugLog('warn','NETWORK',e.message+' — retry dans '+wait+'s');
+await sleep(wait*1000);
+}
+}
+throw lastErr||new Error('Tentatives épuisées pour '+label);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PARSER JSON RENFORCÉ
+// ══════════════════════════════════════════════════════════════════
+function balanceJson(text){let ob=0,ok=0,inString=false,escape=false;for(let i=0;i<text.length;i++){const ch=text[i];if(escape){escape=false;continue}if(ch==='\\'){escape=true;continue}if(ch==='"'){inString=!inString;continue}if(inString)continue;if(ch==='{')ob++;else if(ch==='}')ob--;else if(ch==='[')ok++;else if(ch===']')ok--}let r=text;if(inString)r+='"';while(ok>0){r+=']';ok--}while(ob>0){r+='}';ob--}return r}
+function repairJson(text){
+if(!text)return null;
+let c=String(text).trim();
+const fm=c.match(/```(?:json)?\s*([\s\S]*?)```/);if(fm)c=fm[1].trim();
+const fb=c.indexOf('{');if(fb<0)return null;c=c.slice(fb);
+const lb=c.lastIndexOf('}');if(lb>0)c=c.slice(0,lb+1);
+let out='';let inString=false;let escape=false;
+for(let i=0;i<c.length;i++){
+const ch=c[i];
+if(escape){if('"\\/bfnrtu'.includes(ch))out+='\\'+ch;else out+=ch;escape=false;continue}
+if(ch==='\\'){escape=true;continue}
+if(ch==='"'){inString=!inString;out+=ch;continue}
+if(inString){if(ch==='\n'){out+='\\n';continue}if(ch==='\r'){out+='\\r';continue}if(ch==='\t'){out+='\\t';continue}const code=ch.charCodeAt(0);if(code<32){out+='\\u'+code.toString(16).padStart(4,'0');continue}}
+out+=ch;
+}
+if(escape)out+='\\';
+if(inString)out+='"';
+out=out.replace(/,\s*([}\]])/g,'$1');
+return out;
+}
+function extractJson(text){if(!text)return null;const repaired=repairJson(text);if(!repaired)return null;try{return JSON.parse(repaired)}catch(e1){try{return JSON.parse(balanceJson(repaired))}catch(e2){return null}}}
+
+// ══════════════════════════════════════════════════════════════════
+// ANALYSE VISION
+// ══════════════════════════════════════════════════════════════════
+async function analyzeReferenceImage(dataUrl){
+debugLog('state','VISION','Analyse d\'une image…');
+const systemPrompt=`You are a technical visual analyst. Describe the visual style ONLY. NEVER identify brands, artists, or franchises. Return ONLY valid JSON.
+{
+"medium":"english — exact medium (photograph, painting, 3D render, etc.)",
+"palette":["#hex1","#hex2","#hex3","#hex4","#hex5"],
+"lighting":"english — type, direction, quality",
+"composition":"english — framing rules",
+"texture":"english — surface texture, grain",
+"mood":"english — atmosphere",
+"style_summary":"english — 3-5 sentences usable as a style prompt"
+}`;
+const body={model:MODEL_TEXT,messages:[{role:'system',content:systemPrompt},{role:'user',content:[{type:'text',text:'Analyze the STYLE of this image. Return only the JSON.'},{type:'image_url',image_url:{url:dataUrl}}]}],temperature:0.4,max_tokens:1500,response_format:{type:'json_object'}};
+const res=await apiFetch(API_BASE+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},'Vision',4);
+const data=await res.json();
+const content=data.choices?.[0]?.message?.content;
+const parsed=extractJson(content);
+if(!parsed)throw new Error('Analyse vision invalide');
+return parsed;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FUSION DES STYLES
+// ══════════════════════════════════════════════════════════════════
+function mergeAnalyses(analyses){
+if(analyses.length===0)return null;
+if(analyses.length===1)return analyses[0];
+const allColors=[];
+analyses.forEach(a=>{if(Array.isArray(a.palette))allColors.push(...a.palette)});
+const uniqueColors=[...new Set(allColors)].slice(0,8);
+return{
+medium:analyses[0].medium||'photograph',
+palette:uniqueColors,
+lighting:analyses.map(a=>a.lighting).filter(Boolean).join(' + '),
+composition:analyses[0].composition||'balanced composition',
+texture:analyses.map(a=>a.texture).filter(Boolean).join(' + '),
+mood:analyses.map(a=>a.mood).filter(Boolean).join(' + '),
+style_summary:analyses.map(a=>a.style_summary).filter(Boolean).join(' ')
+};
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PROMPT VIDÉO
+// ══════════════════════════════════════════════════════════════════
+function buildCompositionVideoPrompt(analyses, compType, mood, palette, customPrompt){
+const merged=mergeAnalyses(analyses);
+const comp=COMP_TYPES[compType]||COMP_TYPES.merge;
+const moodStr=MOOD_PROMPTS[mood]||MOOD_PROMPTS.cinematic;
+const paletteStr=palette==='auto'?'harmonious color palette extracted from the reference images':(WA_PALETTES.find(p=>p.id===palette)?.colors.join(', ')||'balanced palette');
+return [
+'CINEMATIC MULTI-IMAGE COMPOSITION — ' + Math.round(1500/24) + ' SECOND VIDEO.',
+'',
+'► COMPOSITION RULE:',
+comp.prompt,
+'',
+'► VISUAL STYLE (unified across all elements):',
+merged.style_summary||'cinematic photography, unified lighting',
+'',
+'► PALETTE:',
+paletteStr,
+'',
+'► MOOD:',
+moodStr,
+'',
+'► MEDIUM:',merged.medium||'photograph',
+'► LIGHTING:',merged.lighting||'natural',
+'► TEXTURE:',merged.texture||'film grain',
+'',
+customPrompt ? ('► SPECIFIC DIRECTION:\n'+customPrompt) : '',
+'',
+'CONSTRAINTS:',
+'- Every person, object, animal, and detail from the source images must remain IDENTICAL.',
+'- No text, no watermarks, no subtitles.',
+'- Portrait 9:16 vertical.',
+'- 24 fps, cinematic.',
+'- Unified lighting across all elements — no mismatched shadows.',
+'- Smooth, continuous motion throughout.'
+].filter(Boolean).join('\n');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// VIDÉO
+// ══════════════════════════════════════════════════════════════════
+function decodeCompositeId(composite){
+if(!composite||typeof composite!=='string')return null;
+if(!composite.startsWith('video_'))return null;
+let b64=composite.slice(6);
+while(b64.length%4)b64+='=';
+try{const decoded=atob(b64);const m=decoded.match(/video_id:([^;]+)/);if(m&&m[1])return m[1].trim()}catch(e){}
+return null;
+}
+async function createVideoTask(prompt,imageUrls,duration){
+const body={model:MODEL_VIDEO,prompt,num_frames:duration,frame_rate:FRAME_RATE};
+if(imageUrls&&imageUrls.length===1)body.image=imageUrls[0];
+else if(imageUrls&&imageUrls.length>1)body.image=imageUrls;
+debugLog('ai','PROMPT VIDÉO','Envoyé ('+prompt.length+' chars, '+(imageUrls?imageUrls.length:0)+' images)',prompt.slice(0,700)+'…');
+const res=await apiFetch(API_BASE+'/videos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},'Video Task',4);
+const data=await res.json();
+const compositeId=data.video_id||data.id||data.task_id;
+if(!compositeId)throw new Error('Pas de video_id');
+const innerId=decodeCompositeId(compositeId);
+return{compositeId,innerId,raw:data};
+}
+function buildIdCandidates(videoIdObj){
+const ids=[];
+if(typeof videoIdObj==='string'){ids.push({label:'composite',value:videoIdObj});const inner=decodeCompositeId(videoIdObj);if(inner&&inner!==videoIdObj)ids.push({label:'inner',value:inner})}
+else if(videoIdObj&&typeof videoIdObj==='object'){
+if(videoIdObj.compositeId)ids.push({label:'composite',value:videoIdObj.compositeId});
+if(videoIdObj.innerId)ids.push({label:'inner',value:videoIdObj.innerId});
+const raw=videoIdObj.raw||{};
+for(const f of['id','task_id','request_id']){if(raw[f]&&!ids.some(x=>x.value===raw[f]))ids.push({label:'raw.'+f,value:raw[f]})}
+}
+const seen=new Set();
+return ids.filter(x=>{if(seen.has(x.value))return false;seen.add(x.value);return true});
+}
+const POLL_URL_BUILDERS=[
+{name:'agnesapi',build:(id)=>POLL_BASE+'?video_id='+encodeURIComponent(id)+'&model_name='+encodeURIComponent(MODEL_VIDEO)},
+{name:'v1-rest',build:(id)=>API_BASE+'/videos/'+encodeURIComponent(id)},
+{name:'v1-status',build:(id)=>API_BASE+'/videos/'+encodeURIComponent(id)+'/status'},
+{name:'v1-model',build:(id)=>API_BASE+'/videos/'+encodeURIComponent(id)+'?model_name='+encodeURIComponent(MODEL_VIDEO)}
 ];
+async function pollVideo(videoIdObj,onProgress){
+const candidates=buildIdCandidates(videoIdObj);
+if(candidates.length===0)throw new Error('Aucun ID de vidéo');
+let rem=VIDEO_FIRST_POLL_DELAY_SEC;
+while(rem>0){if(state.stopRequested)throw new Error('Arrêt demandé');onProgress('Préparation — '+rem+'s');await sleep(1000);rem--}
+let working={builder:state.workingPollUrlBuilder||null,id:null};
+for(let attempt=0;attempt<VIDEO_MAX_POLL_ATTEMPTS;attempt++){
+if(state.stopRequested)throw new Error('Arrêt demandé');
+if(attempt>0){const idx=Math.min(attempt-1,VIDEO_POLL_INTERVALS.length-1);let r=VIDEO_POLL_INTERVALS[idx];while(r>0){if(state.stopRequested)throw new Error('Arrêt demandé');onProgress('Création — '+r+'s');await sleep(1000);r--}}
+const approaches=[];
+if(working.builder&&working.id)approaches.push({builder:working.builder,id:working.id});
+for(const builder of POLL_URL_BUILDERS){for(const cand of candidates){if(!approaches.some(a=>a.builder===builder&&a.id===cand.value))approaches.push({builder,id:cand.value,idLabel:cand.label})}}
+let gotSuccessResponse=false,lastError=null;
+for(const ap of approaches){
+if(state.stopRequested)throw new Error('Arrêt demandé');
+const url=ap.builder.build(ap.id);
+try{
+const res=await apiFetch(url,{method:'GET'},'Polling',2);
+const d=await res.json();
+if(!working.builder||!working.id){working.builder=ap.builder;working.id=ap.id;state.workingPollUrlBuilder=ap.builder;debugLog('success','POLLING','Endpoint validé : '+ap.builder.name)}
+gotSuccessResponse=true;
+const status=d.status||'unknown';
+const progress=d.progress||0;
+onProgress('Création — '+progress+'%');
+if(status==='completed'||status==='succeeded'||status==='done'){const videoUrl=(d.metadata&&d.metadata.url)||d.url||(d.output&&d.output.url);if(!videoUrl)throw new Error('Terminé mais pas d\'URL');return videoUrl}
+if(status==='failed'||status==='error'||status==='cancelled')throw new Error('Échec ('+status+')');
+break;
+}catch(e){if(e.message==='Arrêt demandé')throw e;lastError=e;if(e.status===404){continue}if(e.status===401||e.status===403){continue}break}
+}
+if(!gotSuccessResponse&&lastError){debugLog('warn','POLLING','Aucune approche — '+lastError.message)}
+}
+throw new Error('Délai maximal dépassé');
+}
 
-BONUS.forEach(b=>{
-  APPS.push({
-    num: APPS.length + 1,
-    cat: b.cat,
-    title: b.t,
-    desc: b.d,
-    tags: ['chaton', b.cat]
-  });
+// ══════════════════════════════════════════════════════════════════
+// IMAGES
+// ══════════════════════════════════════════════════════════════════
+function fileToDataUri(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=e=>resolve(e.target.result);reader.onerror=()=>reject(new Error('Erreur lecture'));reader.readAsDataURL(file)})}
+async function compressImage(dataUrl,maxSide){return new Promise((resolve)=>{const img=new Image();img.onload=()=>{let{width,height}=img;const scale=Math.min(1,maxSide/Math.max(width,height));width=Math.round(width*scale);height=Math.round(height*scale);const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,width,height);resolve(canvas.toDataURL('image/jpeg',0.88))};img.onerror=()=>resolve(dataUrl);img.src=dataUrl})}
+async function processOneFile(file){
+if(!file.type.startsWith('image/'))return null;
+if(file.size>15*1024*1024)return null;
+try{const raw=await fileToDataUri(file);const compressed=await compressImage(raw,REF_MAX_SIDE);return{id:Date.now()+Math.random(),dataUri:compressed,name:file.name}}catch(e){return null}
+}
+async function handleFiles(files){
+const list=Array.from(files).filter(f=>f.type.startsWith('image/'));
+if(!list.length)return;
+const remaining=MAX_IMAGES-state.images.length;
+if(remaining<=0){showToast('Maximum '+MAX_IMAGES+' photos','warn');return}
+const toProcess=list.slice(0,remaining);
+if(list.length>remaining)showToast('Seulement '+remaining+' ajoutée(s) (max '+MAX_IMAGES+')','warn');
+const zone=document.getElementById('upload-zone');
+zone.classList.add('loading');
+setStatus('Chargement de '+toProcess.length+' photo(s)…');
+const results=await Promise.allSettled(toProcess.map(f=>processOneFile(f)));
+for(const r of results){if(r.status==='fulfilled'&&r.value)state.images.push(r.value)}
+zone.classList.remove('loading');
+setStatus(null);
+renderImages();
+updateButtons();
+debugLog('success','UPLOAD',state.images.length+' / '+MAX_IMAGES+' photos chargées');
+journalLog(state.images.length+' photo(s) chargée(s) sur '+MAX_IMAGES,'image');
+}
+function renderImages(){
+const grid=document.getElementById('images-grid');
+grid.innerHTML=state.images.map((img,i)=>
+'<div class="image-card">'+
+'<img src="'+img.dataUri+'" alt="">'+
+'<div class="num">#'+(i+1)+'</div>'+
+'<button class="rm" data-rm="'+img.id+'">✕</button>'+
+'</div>'
+).join('');
+grid.querySelectorAll('[data-rm]').forEach(btn=>{
+btn.addEventListener('click',(e)=>{
+e.stopPropagation();
+state.images=state.images.filter(x=>String(x.id)!==btn.dataset.rm);
+renderImages();
+updateButtons();
+});
+});
+document.getElementById('images-count').textContent=state.images.length+' / '+MAX_IMAGES;
+}
+
+function updateButtons(){
+const btn=document.getElementById('generate-btn');
+if(!btn)return;
+const hasKey=hasActiveKey();
+const hasEnough=state.images.length>=2;
+btn.disabled=!hasKey||!hasEnough||state.isRunning;
+if(state.isRunning)btn.textContent='Fusion en cours…';
+else if(!hasKey)btn.textContent='Ajoutez une clé API';
+else if(!hasEnough)btn.textContent='Ajoutez au moins 2 photos';
+else btn.textContent='🎬 Fusionner '+state.images.length+' photos';
+}
+
+function renderVideos(){
+const grid=document.getElementById('videos-grid');
+if(!grid)return;
+grid.innerHTML=state.videos.map((v,i)=>{
+if(v.status==='done'&&v.url){
+return'<div class="scene-card done"><div class="scene-card-header"><span class="scene-card-title">🎬 Vidéo fusionnée</span><span style="color:var(--ok);">✓</span></div><div class="scene-card-body"><video src="'+v.url+'" controls preload="metadata" playsinline></video></div></div>';
+} else if(v.status==='error'){
+return'<div class="scene-card error"><div class="scene-card-header"><span class="scene-card-title">🎬 Vidéo fusionnée</span><span style="color:var(--err);">✕</span></div><div class="scene-card-body"><div class="scene-placeholder" style="color:var(--err);">Erreur : '+esc(v.error||'inconnue')+'</div></div></div>';
+}
+return'<div class="scene-card generating"><div class="scene-card-header"><span class="scene-card-title">🎬 Vidéo fusionnée</span><span class="spinner-mini"></span></div><div class="scene-card-body"><div class="scene-placeholder"><div class="spinner-mini"></div><span>'+esc(v.progress||'En attente…')+'</span></div></div></div>';
+}).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PIPELINE
+// ══════════════════════════════════════════════════════════════════
+async function startComposition(){
+if(state.isRunning)return;
+if(!hasActiveKey()){showToast('Ajoutez au moins une clé API','error');return}
+if(state.images.length<2){showToast('Au moins 2 photos sont nécessaires','error');return}
+state.isRunning=true;
+state.stopRequested=false;
+state.videos=[];
+state.compositionStyle=null;
+document.getElementById('stop-btn').classList.add('visible');
+document.getElementById('generate-btn').disabled=true;
+document.getElementById('section-video').classList.remove('hidden');
+document.getElementById('section-video').classList.add('open');
+renderVideos();
+updateButtons();
+
+const nKeys=state.keyPool.filter(k=>k.active).length;
+journalLog('Composition lancée — '+state.images.length+' photos · '+nKeys+' clé(s) active(s).','highlight');
+
+try{
+setStatus('Analyse des styles des photos…');
+journalLog('Analyse des styles des photos…','image');
+const analyses=[];
+for(let i=0;i<state.images.length;i++){
+try{
+debugLog('info','VISION','Analyse photo '+(i+1)+'/'+state.images.length);
+const a=await analyzeReferenceImage(state.images[i].dataUri);
+analyses.push(a);
+journalLog('Photo '+(i+1)+' analysée : '+(a.medium||'photograph'),'success');
+}catch(e){
+debugLog('warn','VISION','Échec photo '+(i+1)+' : '+e.message);
+}
+}
+if(analyses.length===0)throw new Error('Aucune analyse de style n\'a réussi');
+state.compositionStyle=mergeAnalyses(analyses);
+journalLog('Style fusionné : '+analyses.length+' photo(s) · palette '+state.compositionStyle.palette.length+' couleurs','highlight');
+await sleep(400);
+if(state.stopRequested)throw new Error('Arrêt demandé');
+
+setStatus('Génération de la vidéo fusionnée…');
+journalLog('Génération de la vidéo fusionnée…','video');
+const compType=document.getElementById('comp-type').value;
+const mood=document.getElementById('mood-select').value;
+const palette=document.getElementById('palette-select').value;
+const duration=parseInt(document.getElementById('duration-select').value,10);
+const customPrompt=document.getElementById('custom-prompt').value.trim();
+
+const prompt=buildCompositionVideoPrompt(analyses,compType,mood,palette,customPrompt);
+debugLog('ai','PROMPT FINAL',prompt.slice(0,800)+'…');
+
+state.videos=[{status:'loading',url:null,progress:'Envoi…',error:null}];
+renderVideos();
+
+const imageUrls=state.images.map(img=>img.dataUri);
+const videoIdObj=await createVideoTask(prompt,imageUrls,duration);
+debugLog('success','VIDÉO','Tâche créée — ID: '+(videoIdObj.compositeId||'?').slice(0,40)+'…');
+
+const videoUrl=await pollVideo(videoIdObj,(prog)=>{
+state.videos[0].progress=prog;
+renderVideos();
 });
 
-// Vérification finale : exactement 1300
-console.log('Total apps générées :', APPS.length);
+state.videos=[{status:'done',url:videoUrl,progress:'Terminé'}];
+renderVideos();
+journalLog('✦ Vidéo fusionnée prête ✦','success');
+debugLog('success','VIDÉO','Terminée');
+
+document.getElementById('section-player').classList.remove('hidden');
+document.getElementById('section-player').classList.add('open');
+document.getElementById('play-film-btn').disabled=false;
+
+setStatus('✦ Fusion terminée ✦');
+await sleep(3000);
+setStatus(null);
+
+}catch(e){
+if(e.message==='Arrêt demandé'){
+journalLog('Arrêt demandé','warn');
+setStatus('Arrêté');
+await sleep(1500);
+setStatus(null);
+}else{
+journalLog('Erreur : '+e.message,'error');
+debugLog('error','PIPELINE',e.message);
+state.videos=[{status:'error',url:null,error:e.message}];
+renderVideos();
+setStatus('Erreur : '+e.message.slice(0,60));
+await sleep(3000);
+setStatus(null);
+showToast('Erreur : '+e.message.slice(0,60),'error');
+}
+}
+
+state.isRunning=false;
+state.stopRequested=false;
+document.getElementById('stop-btn').classList.remove('visible');
+updateButtons();
+}
 
 // ══════════════════════════════════════════════════════════════════
-// ÉTAT & FILTRES
+// PLAYER
 // ══════════════════════════════════════════════════════════════════
-let state = {
-  search: '',
-  category: 'all',
-  visibleCount: 50
+async function playFilm(){
+const ready=state.videos.filter(v=>v.status==='done'&&v.url);
+if(ready.length===0){showToast('Aucune vidéo à lire','error');return}
+if(state.isPlayingFilm)return;
+state.isPlayingFilm=true;
+const overlay=document.getElementById('player-overlay');
+const canvas=document.getElementById('player-canvas');
+const hint=document.getElementById('player-hint-overlay');
+if(!overlay||!canvas)return;
+const dpr=Math.min(window.devicePixelRatio||1,2);
+canvas.width=Math.round(window.innerWidth*dpr);
+canvas.height=Math.round(window.innerHeight*dpr);
+canvas.style.width=window.innerWidth+'px';
+canvas.style.height=window.innerHeight+'px';
+const ctx=canvas.getContext('2d');
+overlay.classList.add('visible');
+hint.classList.remove('hidden');
+setTimeout(()=>hint.classList.add('hidden'),3500);
+for(let i=0;i<ready.length;i++){
+if(!state.isPlayingFilm)break;
+await playVideoOnCanvas(ready[i].url,ctx,canvas);
+}
+stopFilmPlayback();
+}
+function playVideoOnCanvas(videoUrl,ctx,canvas){
+return new Promise((resolve)=>{
+const video=document.createElement('video');
+video.src=videoUrl;video.crossOrigin='anonymous';video.muted=false;video.playsInline=true;
+video.onloadedmetadata=()=>{
+const drawFrame=()=>{
+ctx.fillStyle='#000';ctx.fillRect(0,0,canvas.width,canvas.height);
+const ar=video.videoWidth/video.videoHeight;const car=canvas.width/canvas.height;
+let dw,dh,dx,dy;
+if(ar>car){dw=canvas.width;dh=canvas.width/ar;dx=0;dy=(canvas.height-dh)/2}else{dh=canvas.height;dw=canvas.height*ar;dx=(canvas.width-dw)/2;dy=0}
+ctx.drawImage(video,dx,dy,dw,dh);
 };
-
-let toastTimeout = null;
-function showToast(msg){
-  const t = document.getElementById('toast');
-  const txt = document.getElementById('toast-text');
-  if(!t || !txt) return;
-  txt.textContent = msg;
-  t.classList.add('visible','success');
-  if(toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(()=>t.classList.remove('visible'), 2500);
+const loop=()=>{if(!state.isPlayingFilm||video.paused||video.ended){resolve();return}drawFrame();state.playRAF=requestAnimationFrame(loop)};
+video.play().then(()=>{loop()}).catch(()=>resolve());
+};
+video.onended=()=>resolve();
+video.onerror=()=>resolve();
+video.load();
+});
 }
-
-// ══════════════════════════════════════════════════════════════════
-// RENDU
-// ══════════════════════════════════════════════════════════════════
-function getFiltered(){
-  return APPS.filter(app=>{
-    if(state.category !== 'all' && app.cat !== state.category) return false;
-    if(state.search){
-      const s = state.search.toLowerCase();
-      const haystack = (app.title + ' ' + app.desc + ' ' + app.tags.join(' ') + ' ' + app.num).toLowerCase();
-      if(!haystack.includes(s)) return false;
-    }
-    return true;
-  });
-}
-
-function renderStats(){
-  const bar = document.getElementById('stats-bar');
-  const counts = {};
-  APPS.forEach(a=>{counts[a.cat] = (counts[a.cat]||0) + 1});
-  bar.innerHTML = `
-    <span class="stat-pill"><strong>${APPS.length}</strong> applications</span>
-    <span class="stat-pill"><strong>${Object.keys(CATEGORIES).length}</strong> catégories</span>
-    <span class="stat-pill"><strong>3</strong> modèles Agnes</span>
-  `;
-}
-
-function renderCategories(){
-  const el = document.getElementById('cat-filters');
-  const counts = {};
-  APPS.forEach(a=>{counts[a.cat] = (counts[a.cat]||0) + 1});
-  el.innerHTML = `
-    <button class="cat-btn ${state.category==='all'?'active':''}" data-cat="all">Tout<span class="count">${APPS.length}</span></button>
-    ${Object.entries(CATEGORIES).map(([k,v])=>`
-      <button class="cat-btn ${state.category===k?'active':''}" data-cat="${k}">${v.emoji} ${v.label}<span class="count">${counts[k]||0}</span></button>
-    `).join('')}
-  `;
-  el.querySelectorAll('.cat-btn').forEach(b=>{
-    b.addEventListener('click',()=>{
-      state.category = b.dataset.cat;
-      state.visibleCount = 50;
-      renderCategories();
-      renderGrid();
-    });
-  });
-}
-
-function renderGrid(){
-  const filtered = getFiltered();
-  const grid = document.getElementById('apps-grid');
-  const noResults = document.getElementById('no-results');
-  const loadMore = document.getElementById('load-more-wrap');
-  const resultCount = document.getElementById('result-count');
-
-  resultCount.textContent = filtered.length;
-
-  if(filtered.length === 0){
-    grid.innerHTML = '';
-    noResults.style.display = 'block';
-    loadMore.style.display = 'none';
-    return;
-  }
-
-  noResults.style.display = 'none';
-  const toShow = filtered.slice(0, state.visibleCount);
-
-  grid.innerHTML = toShow.map(app=>`
-    <div class="app-card cat-${app.cat}" data-num="${app.num}">
-      <div class="app-card-top">
-        <span class="app-num">#${app.num}</span>
-        <span class="app-cat-tag">${CATEGORIES[app.cat].label}</span>
-      </div>
-      <div class="app-title">${app.title}</div>
-      <div class="app-desc">${app.desc}</div>
-      <div class="app-meta">
-        ${app.tags.map(t=>`<span class="app-meta-tag">${t}</span>`).join('')}
-      </div>
-    </div>
-  `).join('');
-
-  grid.querySelectorAll('.app-card').forEach(card=>{
-    card.addEventListener('click',()=>{
-      const num = card.dataset.num;
-      navigator.clipboard.writeText(num).then(()=>{
-        showToast('Numéro #' + num + ' copié !');
-      }).catch(()=>{
-        showToast('Numéro #' + num);
-      });
-    });
-  });
-
-  if(filtered.length > state.visibleCount){
-    loadMore.style.display = 'block';
-    document.getElementById('load-more-btn').textContent = `Charger plus (${filtered.length - state.visibleCount} restantes)`;
-  } else {
-    loadMore.style.display = 'none';
-  }
+function stopFilmPlayback(){
+state.isPlayingFilm=false;
+if(state.playRAF)cancelAnimationFrame(state.playRAF);
+state.playRAF=null;
+const overlay=document.getElementById('player-overlay');
+if(overlay)overlay.classList.remove('visible');
 }
 
 // ══════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════
 (function init(){
-  renderStats();
-  renderCategories();
-  renderGrid();
+document.getElementById('api-save-btn').addEventListener('click',saveKeysFromUI);
+document.getElementById('api-keys-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();saveKeysFromUI()}});
+document.querySelectorAll('[data-toggle]').forEach(h=>{h.addEventListener('click',()=>{const el=document.getElementById(h.dataset.toggle);if(el)el.classList.toggle('open')})});
 
-  document.getElementById('search-input').addEventListener('input', e=>{
-    state.search = e.target.value;
-    state.visibleCount = 50;
-    renderGrid();
-  });
+const uploadZone=document.getElementById('upload-zone');
+const fileInput=document.getElementById('file-input');
+uploadZone.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',e=>{handleFiles(e.target.files);fileInput.value=''});
 
-  document.getElementById('clear-btn').addEventListener('click', ()=>{
-    state.search = '';
-    state.category = 'all';
-    state.visibleCount = 50;
-    document.getElementById('search-input').value = '';
-    renderCategories();
-    renderGrid();
-  });
+document.getElementById('generate-btn').addEventListener('click',startComposition);
+document.getElementById('stop-btn').addEventListener('click',()=>{
+state.stopRequested=true;
+debugLog('warn','STOP','Arrêt demandé');
+journalLog('Arrêt demandé','warn');
+setStatus('Arrêt en cours…');
+});
 
-  document.getElementById('load-more-btn').addEventListener('click', ()=>{
-    state.visibleCount += 50;
-    renderGrid();
-  });
+document.getElementById('play-film-btn').addEventListener('click',playFilm);
+document.getElementById('player-overlay').addEventListener('click',stopFilmPlayback);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&state.isPlayingFilm)stopFilmPlayback()});
+
+document.getElementById('tab-journal').addEventListener('click',()=>switchTab('journal'));
+document.getElementById('tab-tech').addEventListener('click',()=>switchTab('tech'));
+document.getElementById('debug-clear-btn').addEventListener('click',e=>{e.stopPropagation();clearDebug()});
+document.getElementById('debug-copy-btn').addEventListener('click',e=>{e.stopPropagation();copyDebug()});
+document.getElementById('debug-collapse-btn').addEventListener('click',e=>{e.stopPropagation();toggleDebugCollapse()});
+
+refreshKeyPool();
+updateApiPanel();
+updateButtons();
+renderImages();
+renderVideos();
+
+debugLog('success','INIT','Multi-Image Composition Studio prêt');
+journalLog('Prêt. Ajoutez 2 à 6 photos et lancez la fusion.','highlight');
 })();
 </script>
 </body>
