@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CINÉ-GENESIS · Studio de films IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--p:#fff;--ink:#0b1a2b;--dim:#6b7c93;--ln:#d5deea;--a:#0a84ff;--b:#ff5a1f;--ok:#12b76a;--er:#e5383b;--m:'Share Tech Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.5 Rajdhani,system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;padding-bottom:70px}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(var(--ln) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,var(--ln) 1px,transparent 1px) 0 0/40px 40px;opacity:.5}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--ink);padding:10px 18px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.logo{font:800 20px Orbitron;letter-spacing:.1em}.logo b{color:var(--a)}.logo i{display:block;font:10px var(--m);letter-spacing:.3em;color:var(--dim);font-style:normal}
+#steps{display:flex;gap:4px;flex-wrap:wrap}
+.st{font:11px var(--m);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--ln);background:#fff;color:var(--dim)}
+.st.ok{color:var(--ink);border-color:var(--ink)}.st.on{background:var(--ink);color:#fff;border-color:var(--ink)}.st:disabled{opacity:.45}
+.hb{display:flex;gap:6px;align-items:center}
+main{max-width:1100px;margin:0 auto;padding:22px 16px}
+.hero{background:var(--p);border:1px solid var(--ln);padding:22px;margin-bottom:16px;position:relative}
+.lab{font:11px var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font:600 28px Orbitron;letter-spacing:.04em;margin:6px 0 8px}h2 b{color:var(--a)}h3{font:600 15px Orbitron;letter-spacing:.06em;margin:16px 0 4px}
+p.sub{color:var(--dim);margin-bottom:12px;max-width:780px}
+.guide{display:flex;gap:12px;align-items:center;border:1px solid var(--a);background:#eef6ff;padding:12px 14px;margin:10px 0 16px}
+.guide.go{border-color:var(--ok);background:#effaf4}.guide.er{border-color:var(--er);background:#fff1f1;display:block}.guide.wt{border-color:var(--b);background:#fff6f0}
+textarea,input[type=text],select{width:100%;font:13px var(--m);padding:9px;border:1px solid var(--ln);background:#f9fbfd;color:var(--ink);outline:0}
+textarea:focus,input:focus,select:focus{border-color:var(--a);background:#fff}textarea{resize:vertical;min-height:70px;margin:4px 0}
+label.f{display:block;margin:6px 0}label.f span{display:block}
+button,.btn{font:600 12px var(--m);letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;display:inline-block}
+button:hover:not(:disabled),.btn:hover{background:var(--ink);color:#fff}button:disabled{opacity:.35;cursor:not-allowed}
+.big{background:var(--a);border-color:var(--a);color:#fff;padding:14px 26px;font-size:14px}.big:hover:not(:disabled){background:#0066cc}
+.sm{padding:5px 9px;font-size:10px}.ft{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}.chip{font:11px var(--m);padding:2px 8px;border:1px solid var(--ok);color:var(--ok)}.chip.off{border-color:var(--er);color:var(--er)}.chip.cd{border-color:var(--b);color:var(--b)}
+.gc{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.gc button.sel{background:var(--a);border-color:var(--a);color:#fff}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:10px 0}
+.ch{border:1px solid var(--ink);padding:16px;cursor:pointer;background:#fff}.ch:hover{background:#f3f8ff}.ch.sel{border-color:var(--a);box-shadow:inset 0 0 0 2px var(--a);background:#eef6ff}.ch b{display:block;font:600 15px Orbitron;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.cd{border:1px solid var(--ln);background:#fff;padding:10px;position:relative}.cd.pk{border-color:var(--a)}
+.im{position:relative;background:#e8eef6;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:6px;font:11px var(--m);color:var(--dim)}
+.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sp,.sp2{border:2px solid var(--a);border-top-color:transparent;border-radius:50%;animation:r 1s linear infinite}.sp{position:absolute;width:26px;height:26px;z-index:2}.sp2{display:inline-block;width:16px;height:16px;flex:none}@keyframes r{to{transform:rotate(360deg)}}
+.ip{background:#f6f9fc;border:1px solid var(--ln);padding:8px;margin:6px 0}.rw{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;align-items:center}
+.up{border:1px solid var(--ink);cursor:pointer}
+.bar{height:6px;background:var(--ln);margin:12px 0}.bar i{display:block;height:100%;background:var(--a);width:0;transition:width .4s}
+.feed{margin:10px 0}.fi{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--ln);font-size:16px}.fi.ok{color:var(--ok)}.fi.er{color:var(--er)}.fi em{margin-left:auto;font:11px var(--m);color:var(--dim);font-style:normal}.fi .ic{width:18px;text-align:center;flex:none}
+.mg{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:12px}.mn .im{margin:0}.mn .lab{font-size:9px;padding-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--dim);margin-right:6px}.dot.run{background:var(--ok)}.dot.full{background:var(--b);animation:bl 1s infinite}@keyframes bl{50%{opacity:.25}}
+.lad{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0}.lad i{font:11px var(--m);font-style:normal;padding:3px 8px;border:1px solid var(--ln);color:var(--dim)}.lad i.past{border-color:var(--b);color:var(--b)}.lad i.on{background:var(--b);color:#fff;border-color:var(--b)}
+.tl{border:1px solid var(--ln);background:#fff}.tl.ok{border-color:var(--ok)}.tl.run{border-color:var(--a)}.tl.er{border-color:var(--er)}
+.th{position:relative;background:#e8eef6;overflow:hidden}.th img,.th video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tg{position:absolute;top:4px;left:4px;z-index:2;font:10px var(--m);background:var(--ink);color:#fff;padding:1px 5px}.nw{position:absolute;top:4px;right:4px;z-index:2;font:10px var(--m);font-style:normal;background:var(--b);color:#fff;padding:1px 5px}
+.tx{font-size:13px;padding:6px 8px;line-height:1.3}.mt{font:10px var(--m);color:var(--dim);padding:0 8px 7px}
+.kp{display:flex;gap:22px;flex-wrap:wrap;margin:12px 0}.kp b{font:600 22px Orbitron;display:block}
+#con{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:50;background:#0b1a2b;color:#bfe3ff;transform:translateY(100%);transition:transform .25s;display:flex;flex-direction:column}#con.on{transform:none}
+#lb{flex:1;overflow:auto;padding:8px 12px;font:12px/1.5 var(--m)}.lg.er{color:#ff8a8a}.lg.wr{color:#ffc477}.lg.ok{color:#7dffb5}
+#md{position:fixed;inset:0;background:rgba(11,26,43,.55);z-index:70;display:none;align-items:center;justify-content:center;padding:16px}#md.on{display:flex}#md>div{background:#fff;max-width:640px;width:100%;max-height:85vh;overflow:auto;padding:20px;border:1px solid var(--ink)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:6px;align-items:center}#toast div{background:var(--ink);color:#fff;font:12px var(--m);padding:8px 14px}
+#pl{position:fixed;inset:0;background:#000;z-index:100;display:none;align-items:center;justify-content:center}#pl.on{display:flex}#pv,#pi{max-width:100vw;max-height:100vh}#sub{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#fff;font:600 22px/1.3 Rajdhani;text-shadow:0 2px 8px #000}#pl button{position:absolute;top:14px;right:14px}
+@media(max-width:700px){h2{font-size:21px}.st{padding:4px 6px;font-size:9px}}
+</style></head><body>
+<header><div class="logo">CINÉ<b>-GENESIS</b><i>STUDIO DE FILMS IA</i></div><nav id="steps"></nav>
+<div class="hb"><span class="chip" id="qchip"></span><button class="sm" data-a="sess">Mes films</button><button class="sm" data-a="con">Journal</button></div></header>
+<main id="main"></main>
+<div id="con"><div style="display:flex;justify-content:space-between;padding:6px 12px;border-bottom:1px solid #26405c;font:12px var(--m)"><span>JOURNAL TECHNIQUE</span><button class="sm" data-a="con" style="color:#bfe3ff;border-color:#4a6a8a">✕</button></div><div id="lb"></div></div>
+<div id="md"><div id="mdc"></div></div><div id="toast"></div>
+<div id="pl"><video id="pv" playsinline style="display:none"></video><img id="pi" alt="" style="display:none"><div id="sub"></div><button data-a="stopplay">✕ Quitter</button></div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════════════
+   CONFIG — PROXY CLOUDFLARE WORKER
+   ═════════════════════════════════════════════════════════════════════ */
+const PROXY = 'https://agnes-proxy.TON-COMPTE.workers.dev';
+const API = PROXY + '/v1';
+const POLL = PROXY + '/agnesapi';
+const TXT=['agnes-3.0-flash','agnes-2.5-flash'],IMG='agnes-image-2.5-flash',VID={free:'agnes-video-v2.0',plan:'agnes-video-2.5-flash'};
+const RPM={free:{img:10,vid:1,txt:10},plan:{img:100,vid:5,txt:600}};
+const STEPS=['Clés','Genre','Synopsis','Personnages','Scènes','Plans','Vidéos'];
+const BACK=[3,6,12,24,48,96];
+const G=[['Fiction',[
+  "Court-métrage d'auteur|contemplative arthouse short film, natural light, 35mm grain",
+  "Drame|naturalistic drama, muted palette, intimate framing",
+  "Comédie|bright warm comedy, lively colors, wide lenses",
+  "Thriller|tense thriller, low-key lighting, cold teal tones",
+  "Horreur|atmospheric horror, deep shadows, desaturated",
+  "Science-fiction|visionary sci-fi, vast futuristic scale, clean cold light",
+  "Fantasy|epic fantasy, painterly landscapes, golden hour",
+  "Western|dusty western, anamorphic wide, sun-baked tones",
+  "Film noir|black and white film noir, hard shadows, rain",
+  "Romance|soft romantic cinema, warm bokeh, pastel light",
+  "Aventure|adventure blockbuster, dynamic wide shots, saturated",
+  "Action|kinetic action, high contrast, motion energy",
+  "Guerre|gritty war film, desaturated, handheld",
+  "Historique|period drama, authentic costumes, candlelight",
+  "Policier|crime investigation, neon night city, moody",
+  "Cyberpunk|cyberpunk neon rain, dense city, magenta and cyan",
+  "Post-apocalyptique|post-apocalyptic wasteland, rusted ruins, dusty light",
+  "Conte merveilleux|fairy tale storybook cinema, magical glow"
+]],['Réel',[
+  "Documentaire|observational documentary, natural light, real locations",
+  "Docu-fiction|docu-fiction hybrid, handheld, authentic",
+  "Biopic|biographical drama, period accurate, intimate close-ups",
+  "Reportage|journalistic report, handheld, available light",
+  "Film nature|nature documentary, telephoto wildlife, majestic landscapes",
+  "Film d'archives|archival footage look, grainy, faded colors"
+]],['Animation',[
+  "Animation 2D|hand-drawn 2D animation, flat colors, ink outlines",
+  "Anime|japanese anime cinematic, detailed backgrounds, dramatic lighting",
+  "Stop-motion|stop-motion puppets, handmade textures, tabletop sets",
+  "Dessin animé enfants|colorful kids cartoon, rounded shapes, cheerful",
+  "Style Moebius|Moebius ligne claire comic art, pastel desert colors, flat non-3D drawing"
+]],['Expérimental',[
+  "Poème visuel|poetic visual essay, abstract imagery, slow",
+  "Film contemplatif|slow cinema, long takes, static framing",
+  "Film muet|silent film look, expressive acting, grain",
+  "Vidéo-art|video art, surreal, bold color fields",
+  "Plan-séquence|single continuous take, tracking camera, seamless"
+]],['Formats courts',[
+  "Bande-annonce|movie trailer, epic cuts, dramatic lighting",
+  "Publicité|premium commercial, glossy, product hero shots",
+  "Clip musical|music video, stylized, rhythmic visuals",
+  "Teaser|teaser, mysterious, minimal reveals"
+]]];
+
+const $=s=>document.querySelector(s);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const san=t=>String(t==null?'':t).replace(/[‘’]/g,"'").replace(/[“”«»]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...').replace(/[\u00a0\u202f]/g,' ');
+
+let db,P=null,Q=null,page=0,F=1,playing=false,TASK=null;
+const KEYS={list:[],plan:'free'};
+const AR=()=>(P?P.ratio:'16:9').replace(':','/');
+const ref=i=>i&&(i.d||i.u);
+const mkKey=k=>({k,img:0,vid:0,txt:0,cool:0,bad:0,off:false});
+
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open('cinegenesis_v1',1);r.onerror=()=>rej(r.error);r.onsuccess=()=>res(r.result);r.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('sessions'))d.createObjectStore('sessions',{keyPath:'id'});if(!d.objectStoreNames.contains('config'))d.createObjectStore('config',{keyPath:'key'})}})}
+const tx=(s,m,f)=>new Promise((res,rej)=>{try{const r=f(db.transaction(s,m).objectStore(s));r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}});
+let mode='idb';const mem={sessions:{},config:{}},lsK=(s,k)=>'cg1_'+s+'_'+k;
+function fall(e){if(mode=='idb'){mode='ls';log('wr','IndexedDB indisponible ('+(e&&e.message)+') → stockage de secours');toast('Stockage navigateur limité : sauvegarde de secours activée')}}
+async function dbGet(s,k){if(db&&mode=='idb'){try{return await tx(s,'readonly',o=>o.get(k))}catch(e){fall(e)}}try{const v=localStorage.getItem(lsK(s,k));if(v!=null)return JSON.parse(v)}catch(e){}return mem[s][k]}
+async function dbPut(s,v){const k=v.key||v.id;mem[s][k]=v;if(db&&mode=='idb'){try{return await tx(s,'readwrite',o=>o.put(v))}catch(e){fall(e)}}try{localStorage.setItem(lsK(s,k),JSON.stringify(v))}catch(e){}}
+async function dbDel(s,k){delete mem[s][k];if(db&&mode=='idb'){try{return await tx(s,'readwrite',o=>o.delete(k))}catch(e){fall(e)}}try{localStorage.removeItem(lsK(s,k))}catch(e){}}
+async function dbAll(s){if(db&&mode=='idb'){try{return await tx(s,'readonly',o=>o.getAll())}catch(e){fall(e)}}const o=Object.assign({},mem[s]);try{for(let i=0;i<localStorage.length;i++){const n=localStorage.key(i);if(n.startsWith(lsK(s,''))){const v=JSON.parse(localStorage.getItem(n));o[v.key||v.id]=v}}}catch(e){}return Object.values(o)}
+let svT;function save(){if(!P)return;clearTimeout(svT);svT=setTimeout(()=>{P.upd=Date.now();dbPut('sessions',P).catch(e=>log('er','sauvegarde : '+e.message))},350)}
+
+function log(l,m){const d=document.createElement('div');d.className='lg '+l;d.textContent=new Date().toLocaleTimeString('fr-FR')+'  '+m;const b=$('#lb');if(!b)return;b.appendChild(d);while(b.children.length>400)b.firstChild.remove();b.scrollTop=b.scrollHeight}
+function toast(m){const d=document.createElement('div');d.textContent=m;$('#toast').appendChild(d);setTimeout(()=>d.remove(),4200)}
+
+async function slot(kind){
+  for(;;){
+    if(TASK&&TASK.stop)throw new Error('stop');
+    const live=KEYS.list.filter(o=>!o.off);
+    if(!live.length)throw Object.assign(new Error('Aucune clé active'),{fatal:true});
+    const iv=60000/RPM[KEYS.plan][kind]*1.15*F,now=Date.now();
+    let best=null,bt=1e18;
+    for(const o of live){
+      const t=Math.max(o[kind]||0,o.cool||0,now);
+      if(t<bt){bt=t;best=o}
+    }
+    if(bt>now){await sleep(Math.min(bt-now,400));continue}
+    if(best.cool>Date.now())continue;
+    best[kind]=now+iv;
+    return best;
+  }
+}
+async function call(kind,url,body,tries){
+  let err;
+  for(let a=0;a<tries;a++){
+    const o=await slot(kind);
+    try{
+      const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(r.ok){o.bad=0;F=Math.max(1,F*0.97);return r}
+      const t=(await r.text()).slice(0,200);log('er',kind+' HTTP '+r.status+' '+t);
+      if(r.status==429){o.cool=Date.now()+(parseInt(r.headers.get('Retry-After'))||25)*1000;F=Math.min(4,F*1.5);err=new Error('429');continue}
+      if(r.status==401||r.status==402||r.status==403){if(++o.bad>=2){o.off=true;log('wr','clé …'+o.k.slice(-4)+' désactivée')}err=new Error('HTTP '+r.status);continue}
+      if(r.status>=500||r.status==408){err=new Error('HTTP '+r.status);await sleep(2000*Math.pow(2,a));continue}
+      throw Object.assign(new Error('HTTP '+r.status+' '+t),{fatal:true});
+    }catch(e){
+      if(e.fatal||e.message=='stop')throw e;
+      err=e;await sleep(1500*(a+1));
+    }
+  }
+  throw err||new Error('échec');
+}
+
+function J(t){
+  if(!t)return null;
+  let c=String(t).replace(/```json|```/g,'');
+  const a=c.indexOf('{'),b=c.lastIndexOf('}');
+  if(a<0||b<0)return null;
+  c=c.slice(a,b+1);
+  try{return JSON.parse(c)}catch(e){}
+  let o='',s=false,x=false;
+  for(let i=0;i<c.length;i++){
+    const ch=c[i];
+    if(x){o+=ch;x=false;continue}
+    if(ch=='\\'){o+=ch;x=true;continue}
+    if(ch=='"'){s=!s;o+=ch;continue}
+    if(s&&ch=='\n'){o+='\\n';continue}
+    if(s&&ch=='\r'){continue}
+    if(s&&ch.charCodeAt(0)<32){o+=' ';continue}
+    o+=ch;
+  }
+  try{return JSON.parse(o.replace(/,\s*([}\]])/g,'$1'))}catch(e){return null}
+}
+
+async function chat(sys,user,max,temp,imgs){
+  for(let i=0;i<TXT.length;i++){
+    const m=TXT[i];
+    try{
+      const c=imgs&&imgs.length?[{type:'text',text:user}].concat(imgs.map(u=>({type:'image_url',image_url:{url:u}}))):user;
+      const r=await call('txt',API+'/chat/completions',{model:m,messages:[{role:'system',content:sys},{role:'user',content:c}],temperature:temp,max_tokens:max,chat_template_kwargs:{enable_thinking:false}},3);
+      const d=await r.json();
+      const t=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;
+      if(t)return t;
+    }catch(e){
+      if(e.fatal||e.message=='stop')throw e;
+      log('wr','texte '+m+' : '+e.message);
+    }
+  }
+  throw new Error('IA texte indisponible');
+}
+async function llmJSON(sys,user,max,temp,imgs){
+  for(let a=0;a<2;a++){
+    const j=J(await chat(sys+' Réponds UNIQUEMENT par un objet JSON valide, sans texte autour.',user,max,temp,imgs));
+    if(j)return j;
+  }
+  throw new Error('Réponse IA illisible (JSON)');
+}
+
+function toData(u){
+  return new Promise(resolve=>{
+    if(!u)return resolve(null);
+    if(u.indexOf('data:')===0)return resolve(u);
+    fetch(u).then(r=>r.blob()).then(b=>{
+      const o=URL.createObjectURL(b),im=new Image();
+      im.onload=()=>{
+        try{
+          const s=Math.min(1,1024/Math.max(im.width,im.height));
+          const c=document.createElement('canvas');
+          c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+          c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+          URL.revokeObjectURL(o);
+          resolve(c.toDataURL('image/jpeg',0.86));
+        }catch(e){URL.revokeObjectURL(o);resolve(null)}
+      };
+      im.onerror=()=>{URL.revokeObjectURL(o);resolve(null)};
+      im.src=o;
+    }).catch(()=>resolve(null));
+  });
+}
+function mkImg(prompt,refUris,ratio){
+  const body={model:IMG,prompt:san(prompt),n:1,size:'1K',ratio:ratio||P.ratio,extra_body:{response_format:'url'}};
+  if(refUris&&refUris.length)body.extra_body.image=refUris.filter(Boolean).slice(0,4);
+  return call('img',API+'/images/generations',body,3).then(r=>r.json()).then(d=>{
+    const it=d.data&&d.data[0];
+    const u=it&&(it.url||(it.b64_json&&'data:image/png;base64,'+it.b64_json));
+    if(!u)throw new Error('pas d\'image reçue');
+    const img={u:u,d:u.indexOf('data:')===0?u:null};
+    if(!img.d){img._conv=toData(u).then(dd=>{img.d=dd||u;return img.d}).catch(()=>{img.d=u;return img.d});}
+    return img;
+  });
+}
+function ensureRef(img){
+  if(!img)return Promise.resolve(null);
+  if(img.d)return Promise.resolve(img.d);
+  if(img._conv)return img._conv;
+  img._conv=toData(img.u).then(dd=>{img.d=dd||img.u;return img.d}).catch(()=>{img.d=img.u;return img.d});
+  return img._conv;
+}
+function readFile(f,maxSide){
+  return new Promise(res=>{
+    const fr=new FileReader();
+    fr.onload=()=>{
+      const im=new Image();
+      im.onload=()=>{
+        const s=Math.min(1,maxSide/Math.max(im.width,im.height));
+        const c=document.createElement('canvas');
+        c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+        c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+        const d=c.toDataURL('image/jpeg',0.88);
+        res({u:d,d:d});
+      };
+      im.onerror=()=>res(null);
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(f);
+  });
+}
+
+const newP=()=>({id:uid()+uid(),created:Date.now(),upd:Date.now(),page:0,last:1,max:0,genre:null,ratio:'16:9',synRaw:'',syn:null,final:'',title:'',nsc:5,chars:[],scenes:[],sub:{},q:{step:0,next:0,st:'idle',on:false}});
+function setP(p){
+  P=p;P.sub=P.sub||{};Q=P.q=P.q||{step:0,next:0,st:'idle',on:false};
+  P.chars=P.chars||[];P.scenes=P.scenes||[];
+  P.chars.forEach(c=>c.busy=false);
+  P.scenes.forEach(s=>{s.busy=false;(s.shots||[]).forEach(h=>{h.busy=false;if(h.vst=='run'&&!h.task)h.vst='wait';});});
+  dbPut('config',{key:'last',v:P.id});
+}
+const shots=()=>{const out=[];P.scenes.forEach(s=>{(s.shots||[]).forEach(h=>out.push({h:h,s:s}))});return out};
+const allObjs=()=>{const arr=[].concat(P.chars,P.scenes);P.scenes.forEach(s=>(s.shots||[]).forEach(h=>arr.push(h)));return arr};
+const anyBusy=()=>allObjs().some(o=>o.busy);
+function find(id){
+  if(id=='P')return{t:'p',o:P};
+  for(let i=0;i<P.chars.length;i++)if(P.chars[i].id==id)return{t:'c',o:P.chars[i]};
+  for(let i=0;i<P.scenes.length;i++){const s=P.scenes[i];if(s.id==id)return{t:'s',o:s};const sh
